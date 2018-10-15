@@ -15,7 +15,7 @@ class GroupViewController: UIViewController {
     @IBOutlet weak var joinButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        CustomViewGroup()
+        //CustomViewGroup()
         // Do any additional setup after loading the view.
     }
     

@@ -19,7 +19,7 @@ class RunViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        CustumViewRun()
+        //CustumViewRun()
         // Do any additional setup after loading the view.
     }
     
