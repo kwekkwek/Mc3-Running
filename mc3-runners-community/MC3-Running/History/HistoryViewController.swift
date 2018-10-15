@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HistoryViewController: UIViewController {
+class HistoryViewController: UIViewController,UITableViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,5 +30,5 @@ class HistoryViewController: UIViewController {
 }
 extension HistoryViewController: UITextFieldDelegate
 {
-    
+
 }
