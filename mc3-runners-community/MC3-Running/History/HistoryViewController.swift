@@ -28,7 +28,5 @@ class HistoryViewController: UIViewController,UITableViewDelegate {
     */
 
 }
-extension HistoryViewController: UITextFieldDelegate
-{
 
-}
+
