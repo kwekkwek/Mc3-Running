@@ -52,7 +52,7 @@ struct Member: Codable {
     enum CodingKeys: String , CodingKey {
         case idMember,username
         case position = "position"
-        case joinTime = "10102018"
+        case joinTime = "joinTime"
     }
 }
 struct Route: Codable {
