@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zpc-aN-R05">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--History View Controller-->
+        <scene sceneID="IQc-Kw-urb">
+            <objects>
+                <viewController storyboardIdentifier="History" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zpc-aN-R05" customClass="HistoryViewController" customModule="MC3_Running" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GBC-Bz-cFK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8XG-G9-Mxj">
+                                <rect key="frame" x="0.0" y="351" width="375" height="392"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="85" id="Emd-Ej-pKK" customClass="HistoryTableViewCell" customModule="MC3_Running" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="85"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Emd-Ej-pKK" id="ER4-um-HQb">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="84.666666666666671"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="81" translatesAutoresizingMaskIntoConstraints="NO" id="S1V-mC-cRe">
+                                                    <rect key="frame" x="52" y="26" width="271" height="30"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speedometer" translatesAutoresizingMaskIntoConstraints="NO" id="jmM-pH-EB7">
+                                                            <rect key="frame" x="0.0" y="0.0" width="36.333333333333336" height="30"/>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Fill 26" translatesAutoresizingMaskIntoConstraints="NO" id="2HA-xF-WNu">
+                                                            <rect key="frame" x="117.33333333333333" y="0.0" width="36.333333333333329" height="30"/>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-fire_element-1" translatesAutoresizingMaskIntoConstraints="NO" id="Wc5-Pr-4by">
+                                                            <rect key="frame" x="234.66666666666669" y="0.0" width="36.333333333333314" height="30"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="43l-yj-xz3"/>
+                                                    </constraints>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="0CG-19-bk1">
+                                                    <rect key="frame" x="17.666666666666657" y="59.000000000000007" width="340" height="18.333333333333336"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10'44''" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ERM-eh-zMd">
+                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="18.333333333333332"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="1T1-UF-Ob6"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10,2 km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUm-MF-wOc">
+                                                            <rect key="frame" x="120" y="0.0" width="100" height="18.333333333333332"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="kZ8-a5-4vw"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20,6 cal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyE-vE-ick">
+                                                            <rect key="frame" x="240" y="0.0" width="100" height="18.333333333333332"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="1Z0-it-5af"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="340" id="hna-nG-BeQ"/>
+                                                    </constraints>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 October 2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nq6-71-ekF">
+                                                    <rect key="frame" x="20" y="11" width="131" height="15.666666666666664"/>
+                                                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="S1V-mC-cRe" secondAttribute="trailing" constant="52" id="2j4-p8-6G4"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="nq6-71-ekF" secondAttribute="trailing" constant="209" id="6PQ-mg-DsB"/>
+                                                <constraint firstAttribute="bottom" secondItem="0CG-19-bk1" secondAttribute="bottom" constant="7.3300000000000001" id="FCh-Pi-vKk"/>
+                                                <constraint firstItem="nq6-71-ekF" firstAttribute="top" secondItem="ER4-um-HQb" secondAttribute="topMargin" id="R3M-9M-f5p"/>
+                                                <constraint firstItem="S1V-mC-cRe" firstAttribute="leading" secondItem="ER4-um-HQb" secondAttribute="leading" constant="52" id="h8n-k2-yAF"/>
+                                                <constraint firstItem="S1V-mC-cRe" firstAttribute="centerX" secondItem="ER4-um-HQb" secondAttribute="centerX" id="hKH-sD-zgg"/>
+                                                <constraint firstItem="nq6-71-ekF" firstAttribute="leading" secondItem="ER4-um-HQb" secondAttribute="leadingMargin" constant="5" id="keH-ln-hwA"/>
+                                                <constraint firstItem="0CG-19-bk1" firstAttribute="centerX" secondItem="ER4-um-HQb" secondAttribute="centerX" id="sNx-PN-17F"/>
+                                                <constraint firstItem="0CG-19-bk1" firstAttribute="top" secondItem="S1V-mC-cRe" secondAttribute="bottom" constant="3" id="xmb-JP-YgQ"/>
+                                                <constraint firstItem="S1V-mC-cRe" firstAttribute="top" secondItem="ER4-um-HQb" secondAttribute="topMargin" constant="15" id="yhC-Fs-bna"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="calorieLabel" destination="zyE-vE-ick" id="45p-aV-vmC"/>
+                                            <outlet property="dateLabel" destination="nq6-71-ekF" id="R0t-WL-PC9"/>
+                                            <outlet property="distanceLabel" destination="FUm-MF-wOc" id="xhQ-A6-a42"/>
+                                            <outlet property="speedLabel" destination="ERM-eh-zMd" id="YT6-6G-aLX"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.90980392160000001" green="0.97254901959999995" blue="0.99607843139999996" alpha="0.75208690069999995" colorSpace="custom" customColorSpace="displayP3"/>
+                        <viewLayoutGuide key="safeArea" id="LzN-o0-neF"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="history" id="Nwo-OE-cLv"/>
+                    <connections>
+                        <outlet property="historyTable" destination="8XG-G9-Mxj" id="3Zc-ZP-VXC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OHR-6C-qpj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1149.5999999999999" y="996.05911330049264"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Fill 26" width="13" height="19"/>
+        <image name="icons8-fire_element-1" width="15" height="19"/>
+        <image name="speedometer" width="31" height="18"/>
+    </resources>
+</document>
