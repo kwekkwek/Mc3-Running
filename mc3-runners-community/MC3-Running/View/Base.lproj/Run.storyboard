@@ -24,8 +24,13 @@
                                 </constraints>
                             </mapView>
                             <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxt-CZ-Qun">
-                                <rect key="frame" x="213" y="448" width="154" height="40"/>
-                                <state key="normal" image="addrouteButton">
+                                <rect key="frame" x="303" y="436" width="56" height="56"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="7wJ-Fg-PMF"/>
+                                    <constraint firstAttribute="width" constant="56" id="nk8-Id-MXP"/>
+                                </constraints>
+                                <state key="normal">
                                     <color key="titleColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
@@ -92,6 +97,17 @@
                                     <constraint firstAttribute="width" constant="340" id="aV2-CQ-7Ey"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pC2-DM-J13">
+                                <rect key="frame" x="303" y="372" width="56" height="56"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="Q48-JK-JJ0"/>
+                                    <constraint firstAttribute="width" constant="56" id="t76-85-0yD"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90980392156862744" green="0.97254901960784312" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -100,16 +116,17 @@
                             <constraint firstItem="Fvb-oz-3Ej" firstAttribute="trailing" secondItem="7gq-Lf-cr0" secondAttribute="trailing" id="Ge0-iw-dRn"/>
                             <constraint firstItem="fcK-Ax-cre" firstAttribute="top" secondItem="OQF-af-yU9" secondAttribute="bottom" id="HWX-QF-Wnt"/>
                             <constraint firstItem="OQF-af-yU9" firstAttribute="centerX" secondItem="7gq-Lf-cr0" secondAttribute="centerX" id="PHP-h8-jbV"/>
+                            <constraint firstItem="jxt-CZ-Qun" firstAttribute="top" secondItem="pC2-DM-J13" secondAttribute="bottom" constant="8" id="RKi-yu-WOV"/>
                             <constraint firstItem="ZAa-Ze-AhR" firstAttribute="leading" secondItem="7gq-Lf-cr0" secondAttribute="leading" constant="20" id="UQQ-jv-Uok"/>
-                            <constraint firstItem="jxt-CZ-Qun" firstAttribute="bottom" secondItem="Fvb-oz-3Ej" secondAttribute="bottom" constant="-20" id="UaZ-JN-H2T"/>
                             <constraint firstItem="ZAa-Ze-AhR" firstAttribute="top" secondItem="fcK-Ax-cre" secondAttribute="bottom" constant="20" id="VJy-CG-uAt"/>
                             <constraint firstItem="IOC-ah-fCb" firstAttribute="top" secondItem="ZAa-Ze-AhR" secondAttribute="bottom" constant="23.666666666666629" id="VkY-Al-eo1"/>
                             <constraint firstItem="7gq-Lf-cr0" firstAttribute="trailing" secondItem="fcK-Ax-cre" secondAttribute="trailing" constant="17" id="a2c-dg-OEQ"/>
                             <constraint firstItem="IOC-ah-fCb" firstAttribute="centerX" secondItem="7gq-Lf-cr0" secondAttribute="centerX" id="c1n-7X-j2d"/>
+                            <constraint firstItem="7gq-Lf-cr0" firstAttribute="trailing" secondItem="pC2-DM-J13" secondAttribute="trailing" constant="16" id="d8e-Nq-kqP"/>
                             <constraint firstItem="7gq-Lf-cr0" firstAttribute="trailing" secondItem="ZAa-Ze-AhR" secondAttribute="trailing" constant="20" id="erQ-4Y-xwP"/>
-                            <constraint firstItem="jxt-CZ-Qun" firstAttribute="trailing" secondItem="Fvb-oz-3Ej" secondAttribute="trailing" constant="-8" id="g1W-cc-qAH"/>
-                            <constraint firstItem="jxt-CZ-Qun" firstAttribute="leading" secondItem="Fvb-oz-3Ej" secondAttribute="leading" constant="213" id="hJa-te-6dD"/>
                             <constraint firstItem="OQF-af-yU9" firstAttribute="top" secondItem="Fvb-oz-3Ej" secondAttribute="bottom" constant="12" id="isN-Fc-3sf"/>
+                            <constraint firstItem="jxt-CZ-Qun" firstAttribute="bottom" secondItem="Fvb-oz-3Ej" secondAttribute="bottom" constant="-16" id="lId-MU-XPH"/>
+                            <constraint firstItem="7gq-Lf-cr0" firstAttribute="trailing" secondItem="jxt-CZ-Qun" secondAttribute="trailing" constant="16" id="nbu-IC-DWG"/>
                             <constraint firstItem="7gq-Lf-cr0" firstAttribute="bottom" secondItem="IOC-ah-fCb" secondAttribute="bottom" constant="42" id="oRX-Bx-gn3"/>
                             <constraint firstItem="Fvb-oz-3Ej" firstAttribute="top" secondItem="j46-ZO-uWm" secondAttribute="topMargin" id="yg0-oB-BBP"/>
                         </constraints>
@@ -427,7 +444,6 @@
         <image name="Fill 26" width="13" height="19"/>
         <image name="Startpoint" width="311" height="44"/>
         <image name="addpoint" width="311" height="44"/>
-        <image name="addrouteButton" width="153" height="40"/>
         <image name="cancel_button-1" width="56" height="56"/>
         <image name="distance" width="311" height="44"/>
         <image name="icons8-fire_element-1" width="15" height="19"/>
