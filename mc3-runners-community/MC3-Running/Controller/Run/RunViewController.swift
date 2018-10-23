@@ -153,7 +153,17 @@ class RunViewController: UIViewController {
         }
         
     }
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "addRoute" {
+            if let viewController = segue.destination as? AddRouteViewController {
+                print(currentCoordinate!)
+                if currentCoordinate != nil{
+                    viewController.currentLocation = self.currentCoordinate
+                }
+            }
+        }
+    }
 }
 extension RunViewController: CLLocationManagerDelegate
 {
@@ -177,19 +187,9 @@ extension RunViewController: CLLocationManagerDelegate
             zoomToLocation(with: lastlocation.coordinate)
         }
         //limit time and distance update
-        locationManager.allowDeferredLocationUpdates(untilTraveled: CLLocationDistanceMax, timeout: 20)
+        locationManager.allowDeferredLocationUpdates(untilTraveled: CLLocationDistanceMax, timeout: 30)
         currentCoordinate = lastlocation.coordinate
         
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if segue.identifier == "addRoute" {
-            if let viewController = segue.destination as? AddRouteViewController {
-                if currentCoordinate != nil{
-                    viewController.currentLocation = self.currentCoordinate
-                }
-            }
-        }
     }
     
 }

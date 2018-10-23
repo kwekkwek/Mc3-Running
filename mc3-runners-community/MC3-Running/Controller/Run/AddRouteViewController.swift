@@ -17,7 +17,11 @@ class AddRouteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(currentLocation)
+        currentLoc.text = "\(currentLocation!)"
         // Do any additional setup after loading the view.
+        LocationManager.delegate = self
+        LocationManager.startUpdatingLocation()
+        
     }
     
 
