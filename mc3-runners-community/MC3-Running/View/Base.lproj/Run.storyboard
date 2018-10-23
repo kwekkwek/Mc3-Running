@@ -107,6 +107,9 @@
                                 <state key="normal">
                                     <color key="titleColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
+                                <connections>
+                                    <action selector="reCenterMap:" destination="Giz-gt-GKJ" eventType="touchUpInside" id="UU6-TO-X35"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90980392156862744" green="0.97254901960784312" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
@@ -136,6 +139,7 @@
                     <connections>
                         <outlet property="addRouteButton" destination="jxt-CZ-Qun" id="zne-5k-Obk"/>
                         <outlet property="mapView" destination="Fvb-oz-3Ej" id="W0l-zx-4e3"/>
+                        <outlet property="recenterButton" destination="pC2-DM-J13" id="YZa-hY-l4D"/>
                         <outlet property="startButton" destination="IOC-ah-fCb" id="gkx-d4-5yI"/>
                     </connections>
                 </viewController>
@@ -146,7 +150,7 @@
         <!--Add Route View Controller-->
         <scene sceneID="C8q-6C-PM3">
             <objects>
-                <viewController id="PMb-9l-JIp" customClass="AddRouteViewController" customModule="MC3_Running" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addRoute" id="PMb-9l-JIp" customClass="AddRouteViewController" customModule="MC3_Running" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DIW-eJ-ilg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -215,6 +219,9 @@
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="currentLoc" destination="Vh8-A6-iFa" id="3hP-1P-rNq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="94U-wA-Q9H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
 
 class AddRouteViewController: UIViewController {
-
+    var LocationManager = CLLocationManager()
+    var currentLocation:CLLocationCoordinate2D?
+    @IBOutlet weak var currentLoc: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(currentLocation)
         // Do any additional setup after loading the view.
     }
     
@@ -22,4 +26,11 @@ class AddRouteViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = true
     }
 
+}
+extension AddRouteViewController: CLLocationManagerDelegate
+{
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let lastlocation = locations.first else {return}
+        currentLocation = lastlocation.coordinate
+    }
 }
