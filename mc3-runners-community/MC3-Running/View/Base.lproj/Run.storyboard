@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -37,21 +38,37 @@
                                     <segue destination="PMb-9l-JIp" kind="show" identifier="addRoute" id="ZR7-FB-0et"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="03:10:34" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAa-Ze-AhR">
-                                <rect key="frame" x="20" y="583.33333333333337" width="335" height="0.0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAa-Ze-AhR">
+                                <rect key="frame" x="20" y="588.33333333333337" width="335" height="39"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
                                 <color key="textColor" red="1" green="0.38431372549019605" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IOC-ah-fCb">
-                                <rect key="frame" x="147.66666666666666" y="607" width="80" height="80"/>
+                                <rect key="frame" x="147.66666666666666" y="635" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="76z-oq-VHL"/>
                                     <constraint firstAttribute="height" constant="80" id="en0-v2-74K"/>
                                 </constraints>
-                                <state key="normal" image="startRun_button">
+                                <state key="normal">
                                     <color key="titleColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
+                                <connections>
+                                    <action selector="StartRun:" destination="Giz-gt-GKJ" eventType="touchUpInside" id="4Zk-O2-3HO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yAb-lp-7cI">
+                                <rect key="frame" x="54" y="635" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="Erm-5S-KlH"/>
+                                    <constraint firstAttribute="width" constant="80" id="a85-S4-f5R"/>
+                                </constraints>
+                                <state key="normal" image="stopRun2_button">
+                                    <color key="titleColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="EndRun:" destination="Giz-gt-GKJ" eventType="touchUpInside" id="oMN-1h-8sB"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="81" translatesAutoresizingMaskIntoConstraints="NO" id="OQF-af-yU9">
                                 <rect key="frame" x="60" y="520" width="255" height="30"/>
@@ -72,22 +89,22 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fcK-Ax-cre">
-                                <rect key="frame" x="18" y="550" width="340" height="13.333333333333371"/>
+                                <rect key="frame" x="18" y="550" width="340" height="18.333333333333371"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10'44'' 9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFk-C2-0Ca">
-                                        <rect key="frame" x="0.0" y="0.0" width="106.66666666666667" height="13.333333333333334"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="106.66666666666667" height="18.333333333333332"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10,2 km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOx-Ju-zdd">
-                                        <rect key="frame" x="116.66666666666666" y="0.0" width="106.66666666666666" height="13.333333333333334"/>
+                                        <rect key="frame" x="116.66666666666666" y="0.0" width="106.66666666666666" height="18.333333333333332"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20,6 cal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hW-Wd-Bsa">
-                                        <rect key="frame" x="233.33333333333334" y="0.0" width="106.66666666666666" height="13.333333333333334"/>
+                                        <rect key="frame" x="233.33333333333334" y="0.0" width="106.66666666666666" height="18.333333333333332"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -111,18 +128,36 @@
                                     <action selector="reCenterMap:" destination="Giz-gt-GKJ" eventType="touchUpInside" id="UU6-TO-X35"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSe-kT-iPM">
+                                <rect key="frame" x="244" y="635" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="DVs-NG-o7C"/>
+                                    <constraint firstAttribute="height" constant="80" id="UxS-WU-SxJ"/>
+                                </constraints>
+                                <state key="normal" image="resumeRun2_button">
+                                    <color key="titleColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="ResumeRun:" destination="Giz-gt-GKJ" eventType="touchUpInside" id="WVn-0G-X65"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90980392156862744" green="0.97254901960784312" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="NSe-kT-iPM" firstAttribute="top" secondItem="ZAa-Ze-AhR" secondAttribute="bottom" constant="7.6699999999999999" id="0sP-4m-9LS"/>
                             <constraint firstItem="Fvb-oz-3Ej" firstAttribute="leading" secondItem="7gq-Lf-cr0" secondAttribute="leading" id="9zP-SP-wDZ"/>
                             <constraint firstItem="fcK-Ax-cre" firstAttribute="leading" secondItem="7gq-Lf-cr0" secondAttribute="leading" constant="18" id="AlW-QP-Bfx"/>
                             <constraint firstItem="Fvb-oz-3Ej" firstAttribute="trailing" secondItem="7gq-Lf-cr0" secondAttribute="trailing" id="Ge0-iw-dRn"/>
                             <constraint firstItem="fcK-Ax-cre" firstAttribute="top" secondItem="OQF-af-yU9" secondAttribute="bottom" id="HWX-QF-Wnt"/>
+                            <constraint firstItem="7gq-Lf-cr0" firstAttribute="bottom" secondItem="NSe-kT-iPM" secondAttribute="bottom" constant="14" id="LfR-HX-zZI"/>
+                            <constraint firstItem="7gq-Lf-cr0" firstAttribute="trailing" secondItem="NSe-kT-iPM" secondAttribute="trailing" constant="51" id="Lyg-g1-KnS"/>
                             <constraint firstItem="OQF-af-yU9" firstAttribute="centerX" secondItem="7gq-Lf-cr0" secondAttribute="centerX" id="PHP-h8-jbV"/>
                             <constraint firstItem="jxt-CZ-Qun" firstAttribute="top" secondItem="pC2-DM-J13" secondAttribute="bottom" constant="8" id="RKi-yu-WOV"/>
                             <constraint firstItem="ZAa-Ze-AhR" firstAttribute="leading" secondItem="7gq-Lf-cr0" secondAttribute="leading" constant="20" id="UQQ-jv-Uok"/>
+                            <constraint firstItem="yAb-lp-7cI" firstAttribute="top" secondItem="ZAa-Ze-AhR" secondAttribute="bottom" constant="7.6699999999999999" id="URk-WR-2w7"/>
                             <constraint firstItem="ZAa-Ze-AhR" firstAttribute="top" secondItem="fcK-Ax-cre" secondAttribute="bottom" constant="20" id="VJy-CG-uAt"/>
-                            <constraint firstItem="IOC-ah-fCb" firstAttribute="top" secondItem="ZAa-Ze-AhR" secondAttribute="bottom" constant="23.666666666666629" id="VkY-Al-eo1"/>
+                            <constraint firstItem="7gq-Lf-cr0" firstAttribute="bottom" secondItem="yAb-lp-7cI" secondAttribute="bottom" constant="14" id="X03-pE-HsW"/>
+                            <constraint firstItem="yAb-lp-7cI" firstAttribute="leading" secondItem="7gq-Lf-cr0" secondAttribute="leading" constant="54" id="ZTv-1w-nRl"/>
                             <constraint firstItem="7gq-Lf-cr0" firstAttribute="trailing" secondItem="fcK-Ax-cre" secondAttribute="trailing" constant="17" id="a2c-dg-OEQ"/>
                             <constraint firstItem="IOC-ah-fCb" firstAttribute="centerX" secondItem="7gq-Lf-cr0" secondAttribute="centerX" id="c1n-7X-j2d"/>
                             <constraint firstItem="7gq-Lf-cr0" firstAttribute="trailing" secondItem="pC2-DM-J13" secondAttribute="trailing" constant="16" id="d8e-Nq-kqP"/>
@@ -130,7 +165,7 @@
                             <constraint firstItem="OQF-af-yU9" firstAttribute="top" secondItem="Fvb-oz-3Ej" secondAttribute="bottom" constant="12" id="isN-Fc-3sf"/>
                             <constraint firstItem="jxt-CZ-Qun" firstAttribute="bottom" secondItem="Fvb-oz-3Ej" secondAttribute="bottom" constant="-16" id="lId-MU-XPH"/>
                             <constraint firstItem="7gq-Lf-cr0" firstAttribute="trailing" secondItem="jxt-CZ-Qun" secondAttribute="trailing" constant="16" id="nbu-IC-DWG"/>
-                            <constraint firstItem="7gq-Lf-cr0" firstAttribute="bottom" secondItem="IOC-ah-fCb" secondAttribute="bottom" constant="42" id="oRX-Bx-gn3"/>
+                            <constraint firstItem="7gq-Lf-cr0" firstAttribute="bottom" secondItem="IOC-ah-fCb" secondAttribute="bottom" constant="14" id="oRX-Bx-gn3"/>
                             <constraint firstItem="Fvb-oz-3Ej" firstAttribute="top" secondItem="j46-ZO-uWm" secondAttribute="topMargin" id="yg0-oB-BBP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7gq-Lf-cr0"/>
@@ -138,9 +173,12 @@
                     <navigationItem key="navigationItem" title="Run" id="2jA-yX-r8U"/>
                     <connections>
                         <outlet property="addRouteButton" destination="jxt-CZ-Qun" id="zne-5k-Obk"/>
+                        <outlet property="endButton" destination="NSe-kT-iPM" id="9tD-ZY-Htg"/>
                         <outlet property="mapView" destination="Fvb-oz-3Ej" id="W0l-zx-4e3"/>
                         <outlet property="recenterButton" destination="pC2-DM-J13" id="YZa-hY-l4D"/>
+                        <outlet property="resumeButton" destination="yAb-lp-7cI" id="H5N-N6-3s6"/>
                         <outlet property="startButton" destination="IOC-ah-fCb" id="gkx-d4-5yI"/>
+                        <outlet property="timeLabel" destination="ZAa-Ze-AhR" id="mp7-yI-WDz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zn3-LV-45g" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -456,7 +494,8 @@
         <image name="cancel_button-1" width="56" height="56"/>
         <image name="distance" width="311" height="44"/>
         <image name="icons8-fire_element-1" width="15" height="19"/>
+        <image name="resumeRun2_button" width="112" height="112"/>
         <image name="speedometer" width="31" height="18"/>
-        <image name="startRun_button" width="112" height="112"/>
+        <image name="stopRun2_button" width="112" height="112"/>
     </resources>
 </document>

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zpc-aN-R05">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="y8Q-ew-ivw">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,7 +13,7 @@
         <!--History View Controller-->
         <scene sceneID="IQc-Kw-urb">
             <objects>
-                <viewController storyboardIdentifier="History" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zpc-aN-R05" customClass="HistoryViewController" customModule="MC3_Running" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HistoryDetail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zpc-aN-R05" customClass="HistoryViewController" customModule="MC3_Running" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GBC-Bz-cFK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -114,12 +115,34 @@
                         <color key="backgroundColor" red="0.90980392160000001" green="0.97254901959999995" blue="0.99607843139999996" alpha="0.75208690069999995" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="LzN-o0-neF"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="history" id="Nwo-OE-cLv"/>
+                    <navigationItem key="navigationItem" id="ZaG-tf-wKR"/>
                     <connections>
                         <outlet property="historyTable" destination="8XG-G9-Mxj" id="3Zc-ZP-VXC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHR-6C-qpj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2092" y="996.05911330049264"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tfw-yI-sd8">
+            <objects>
+                <navigationController storyboardIdentifier="History" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="y8Q-ew-ivw" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" id="rOS-a5-5HQ">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-29"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="thd-rw-S0Z">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zpc-aN-R05" kind="relationship" relationship="rootViewController" id="otu-HU-Tog"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j4Z-AZ-I51" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1149.5999999999999" y="996.05911330049264"/>
         </scene>

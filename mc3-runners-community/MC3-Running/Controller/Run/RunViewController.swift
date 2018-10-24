@@ -22,11 +22,19 @@ class RunViewController: UIViewController {
     @IBOutlet weak var addRouteButton: UIButton!
     @IBOutlet weak var recenterButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var timeLabel: UILabel!
+    
+    @IBOutlet weak var endButton: UIButton!
+    @IBOutlet weak var resumeButton: UIButton!
     var mapHelp:MapHelper?
     //make array class
     var users:[RootClass] = []
     var group = String.random()
     var nama: String?
+    var timer = Timer()
+    var secs = 0
+    var times : String = ""
+    
     let tabBarImageActive = ["groupTabBar_Active", "runTabBar_ActiveS", "historyTabBar_Active"]
     let tabBarImageInactive = ["groupTabBar_Inactive","runTabBar_Inactive","historyTabBar_Inactive" ]
     
@@ -34,27 +42,11 @@ class RunViewController: UIViewController {
         super.viewDidLoad()
         mapHelp = MapHelper(with: mapView)
         configurePermission()
+        ReadyRun()
         
-        //CustumViewRun()
     }
 
-    func CustumViewRun()  {
-        
-        addRouteButton.layer.shadowOpacity = 0.1
-        addRouteButton.layer.shadowOffset = CGSize.zero
-        addRouteButton.layer.shadowRadius = 5
-        addRouteButton.layer.cornerRadius = 5
-        
-        recenterButton.layer.shadowOpacity = 0.1
-        recenterButton.layer.shadowOffset = CGSize.zero
-        recenterButton.layer.shadowRadius = 5
-        recenterButton.layer.cornerRadius = 5
-        
-        startButton.layer.shadowOpacity = 0.1
-        startButton.layer.shadowOffset = CGSize.zero
-        startButton.layer.shadowRadius = 5
-        
-    }
+    
     @IBAction func reCenterMap(_ sender: Any) {
         mapHelp!.zoomToLocation(with: currentCoordinate!)
     }
@@ -123,6 +115,109 @@ class RunViewController: UIViewController {
             }
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    @IBAction func StartRun(_ sender: UIButton) {
+        
+        if sender.tag >  1 { sender.tag = 0}
+        print("ini tag awal   = \(sender.tag)")
+        
+        switch sender.tag {
+        case 0:
+            self.startButton.setBackgroundImage(UIImage(named: "pauseRun_button"), for : UIControl.State.normal)
+           self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(TimerCount), userInfo: nil, repeats: true)
+            TimerCount()
+            sender.tag += 1
+            
+        case 1:
+            StopRun()
+            
+        default:
+            return
+        }
+    }
+    
+//    @objc func UpdateTimer()  {
+//        self.counter = counter + 0.1
+//        self.timeLabel.text = String(format: "%.0f", counter)
+//    }
+  
+//   @objc func StartTimer() {
+//
+//        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(TimerDiscount), userInfo: nil, repeats: true)
+//    }
+    
+    @objc func TimerCount() {
+        self.secs = self.secs + 1
+        let hours = self.secs / 3600
+        let mins = self.secs / 60 % 60
+        let secs = self.secs % 60
+         self.times = ((hours<10) ? "0" : "") + String(hours) + " : " + ((mins<10) ? "0" : "") + String(mins) + " : " + ((secs<10) ? "0" : "") + String(secs)
+        timeLabel.text = times
+        
+        print("ini second = \(secs)")
+    }
+    func ReadyRun() {
+        self.timeLabel.text = "00:00:00"
+        self.startButton.tag = 0
+        self.secs =  0
+        self.startButton.setBackgroundImage(UIImage(named: "startRun_button"), for : UIControl.State.normal)
+        self.startButton.isHidden = false
+        self.resumeButton.isHidden = true
+        self.endButton.isHidden = true
+        
+    }
+    
+    func StopRun() {
+        timer.invalidate()
+        self.startButton.isHidden = true
+        self.resumeButton.isHidden = false
+        self.endButton.isHidden = false
+    }
+    
+    func ResumeAct()  {
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(TimerCount), userInfo: nil, repeats: true)
+        self.startButton.isHidden = false
+        self.resumeButton.isHidden = true
+        self.endButton.isHidden = true
+        self.startButton.setBackgroundImage(UIImage(named: "pauseRun_button"), for : UIControl.State.normal)
+    }
+    
+    func notifyUser()  {
+        let alert = UIAlertController(title: "Confirm", message: "Do you want to end your run?", preferredStyle: UIAlertController.Style.alert)
+        
+        let yesAction = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default){ (_) in
+            //record data ke data base
+            //clearing value
+        }
+        
+        let noAction = UIAlertAction(title: "No", style: UIAlertAction.Style.cancel){(_) in
+            self.ReadyRun()
+            
+        }
+        
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func ResumeRun(_ sender: UIButton) {
+        ResumeAct()
+    }
+    
+    @IBAction func EndRun(_ sender: UIButton) {
+        notifyUser()
+    }
+    
+    
+    
+
+
 }
 extension RunViewController: CLLocationManagerDelegate
 {
