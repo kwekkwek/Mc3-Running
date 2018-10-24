@@ -221,6 +221,8 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="currentLoc" destination="Vh8-A6-iFa" id="3hP-1P-rNq"/>
+                        <outlet property="enterPoint" destination="iQB-I4-ogS" id="lXq-Sb-wqo"/>
+                        <outlet property="mapView" destination="OeY-g5-XyT" id="UtE-Y5-FcC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="94U-wA-Q9H" userLabel="First Responder" sceneMemberID="firstResponder"/>

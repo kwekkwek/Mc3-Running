@@ -16,12 +16,13 @@ class RunViewController: UIViewController {
     let locationManager = CLLocationManager()
     var ref: DatabaseReference!
     var currentCoordinate:CLLocationCoordinate2D?
-    var namas = "Benny"
+    var namas:String = "Benny"
+   
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addRouteButton: UIButton!
     @IBOutlet weak var recenterButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
-  
+    var mapHelp:MapHelper?
     //make array class
     var users:[RootClass] = []
     var group = String.random()
@@ -29,14 +30,13 @@ class RunViewController: UIViewController {
     let tabBarImageActive = ["groupTabBar_Active", "runTabBar_ActiveS", "historyTabBar_Active"]
     let tabBarImageInactive = ["groupTabBar_Inactive","runTabBar_Inactive","historyTabBar_Inactive" ]
     
-   
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapHelp = MapHelper(with: mapView)
         configurePermission()
+        
         //CustumViewRun()
-        // Do any additional setup after loading the view.
     }
-    
 
     func CustumViewRun()  {
         
@@ -56,7 +56,7 @@ class RunViewController: UIViewController {
         
     }
     @IBAction func reCenterMap(_ sender: Any) {
-        zoomToLocation(with: currentCoordinate!)
+        mapHelp!.zoomToLocation(with: currentCoordinate!)
     }
     func configurePermission()
     {
@@ -67,39 +67,11 @@ class RunViewController: UIViewController {
             locationManager.requestAlwaysAuthorization()
         } else if authStatus != .authorizedAlways || authStatus != .authorizedWhenInUse
         {
-            beginUpdate(with: locationManager)
+            mapHelp?.beginUpdate(with: locationManager)
         }
         if !CLLocationManager.locationServicesEnabled(){
             return
         }
-    }
-    func beginUpdate(with locationManager: CLLocationManager)
-    {
-        mapView.showsUserLocation = true
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.distanceFilter = kCLDistanceFilterNone
-        locationManager.startUpdatingLocation()
-        //locationManager.activityType = .fitness
-    }
-    func zoomToLocation(with coordinate:CLLocationCoordinate2D)
-    {
-        let dist = 1000
-        let regionZoom = MKCoordinateRegion(center: coordinate, latitudinalMeters: CLLocationDistance(dist), longitudinalMeters: CLLocationDistance(dist))
-        mapView.setRegion(regionZoom, animated: true)
-    }
-    func sendLocation(_ locations: CLLocationCoordinate2D)
-    {
-        //let key = ref.childByAutoId().key
-        ref = Database.database().reference().child("positions")
-        let location:[String:Any] = [
-            "id": "\(namas)",
-            "latitude":locations.latitude,
-            "longitude":locations.longitude
-        ]
-        ref.child("\(namas)").setValue(location)
-        print("addData")
-        
     }
     func getKey()
     {
@@ -137,21 +109,8 @@ class RunViewController: UIViewController {
             self.mapView.removeAnnotations(allAnnotation)
         }
         for dataUser in user {
-            
-            let long = CLLocationDegrees(exactly: dataUser.longitude!)
-            print(long!)
-            let lat = CLLocationDegrees(exactly: dataUser.latitude!)
-            print(lat!)
-            let CLLCoordType = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
-            let anno = MKPointAnnotation();
-            DispatchQueue.main.async {
-                anno.title = dataUser.id
-                anno.coordinate = CLLCoordType;
-                self.mapView.addAnnotation(anno);
-            }
-            
+            mapHelp?.DrawingAnnotation(Longitude: dataUser.longitude!, latitude: dataUser.latitude!, title: dataUser.id!)
         }
-        
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
@@ -168,28 +127,24 @@ class RunViewController: UIViewController {
 extension RunViewController: CLLocationManagerDelegate
 {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //        mapView.mapType = MKMapType.standard
-        //        let location = locations[0]
-        //        let myLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
-        //        let regionRadius: CLLocationDistance = 1000
-        //        let coordinateRegion = MKCoordinateRegion(center: myLocation,
-        //                                                  latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
-        //        mapView.setRegion(coordinateRegion, animated: true)
-        
         guard let lastlocation = locations.first else {return}
         if namas != nil{
-            sendLocation(lastlocation.coordinate)
+            //sendLocation(lastlocation.coordinate)
+            mapHelp?.sendLocation(lastlocation.coordinate, referensi: "\(namas)")
             getKey()
             Drawannotation(users)
         }
         if currentCoordinate == nil
         {
-            zoomToLocation(with: lastlocation.coordinate)
+            mapHelp?.zoomToLocation(with: lastlocation.coordinate)
         }
         //limit time and distance update
         locationManager.allowDeferredLocationUpdates(untilTraveled: CLLocationDistanceMax, timeout: 30)
         currentCoordinate = lastlocation.coordinate
         
+    }
+    func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
+        manager.stopUpdatingLocation()
     }
     
 }
