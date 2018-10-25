@@ -24,12 +24,8 @@ class JoinGroupViewController: UIViewController {
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var closeButton: UIButton!
     
-    @IBOutlet weak var Code1: UITextField!
-    @IBOutlet weak var Code3: UITextField!
-    @IBOutlet weak var Code4: UITextField!
-    @IBOutlet weak var Code2: UITextField!
-    
     @IBOutlet weak var joinButton: UIButton!
+    @IBOutlet weak var pinEntryText: PinCodeTextField!
     
     var delegate : JoinGroupDelegate?
     override func viewDidLoad() {

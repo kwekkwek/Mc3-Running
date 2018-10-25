@@ -109,34 +109,41 @@ if you want to go far go together</string>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="31" translatesAutoresizingMaskIntoConstraints="NO" id="R7h-2a-6WL">
                                         <rect key="frame" x="17.666666666666657" y="117" width="310" height="45"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kZy-Tw-lTe">
-                                                <rect key="frame" x="0.0" y="0.0" width="54.333333333333336" height="45"/>
-                                                <color key="backgroundColor" red="1" green="0.38431372549999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CKV-up-m34">
-                                                <rect key="frame" x="85.333333333333343" y="0.0" width="54.333333333333343" height="45"/>
-                                                <color key="backgroundColor" red="1" green="0.38431372549999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vNh-EU-XFN">
-                                                <rect key="frame" x="170.66666666666669" y="0.0" width="54" height="45"/>
-                                                <color key="backgroundColor" red="1" green="0.38431372549999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z7D-pm-4Eh">
-                                                <rect key="frame" x="255.66666666666666" y="0.0" width="54.333333333333343" height="45"/>
-                                                <color key="backgroundColor" red="1" green="0.38431372549999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BCt-Zr-4An" customClass="PinCodeTextField" customModule="MC3_Running" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="310" height="45"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="underlineHeight">
+                                                        <real key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="characterLimit">
+                                                        <integer key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="underlineWidth">
+                                                        <real key="value" value="46"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                        <real key="value" value="47"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="underlineColor">
+                                                        <color key="value" red="0.92941176469999998" green="0.41960784309999999" blue="0.1764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                        <color key="value" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="underlineHSpacing">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="underlineVMargin">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="secureText" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="••••"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="DsK-YY-8BB"/>
@@ -215,13 +222,10 @@ if you want to go far go together</string>
                         <viewLayoutGuide key="safeArea" id="bmh-Pp-Bmy"/>
                     </view>
                     <connections>
-                        <outlet property="Code1" destination="kZy-Tw-lTe" id="Pim-eJ-Nxc"/>
-                        <outlet property="Code2" destination="CKV-up-m34" id="Fhb-LY-xj1"/>
-                        <outlet property="Code3" destination="vNh-EU-XFN" id="IaY-SJ-928"/>
-                        <outlet property="Code4" destination="z7D-pm-4Eh" id="lIo-2O-NQ5"/>
                         <outlet property="closeButton" destination="LHM-3o-mgv" id="XZA-B2-QWi"/>
                         <outlet property="joinButton" destination="eqj-zr-Kmx" id="vLZ-K3-zSO"/>
                         <outlet property="joinView" destination="QEd-vW-oK0" id="ktu-fF-rsp"/>
+                        <outlet property="pinEntryText" destination="BCt-Zr-4An" id="dPp-Uj-3Cl"/>
                         <outlet property="titleLabel" destination="bgD-r6-2Hr" id="M5U-KE-oCk"/>
                         <outlet property="usernameField" destination="19b-n9-7gW" id="7fN-Ir-tGM"/>
                     </connections>

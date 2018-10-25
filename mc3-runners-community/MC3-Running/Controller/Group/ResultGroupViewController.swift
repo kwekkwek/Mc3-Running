@@ -40,8 +40,10 @@ class ResultGroupViewController: UIViewController {
     
     func getKey()
     {
+        
+        print("gasgas")
         var arrayUsers:[Kelompok] = []
-        Database.database().reference().child(fullKode).observe(.value) { snapshot in
+        Database.database().reference().child("runners").observe(.value) { snapshot in
             guard let value = snapshot.value as? [String:[String:Any]] else {return}
             print(value)
             do{
