@@ -44,6 +44,15 @@ struct Group : Codable {
         case createTime = "time"
     }
 }
+
+struct Kelompok : Codable {
+    let idGroup :String?
+    let namaGroup :String?
+    enum CodingKeys: String , CodingKey {
+        case idGroup, namaGroup
+    }
+}
+
 struct Member: Codable {
     let idMember : String?
     let username : String?
@@ -95,4 +104,16 @@ extension String {
         }
         return randomString
     }
+    
+    static func random1(length: Int = 1) -> String {
+        let base = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        var randomString: String = ""
+        
+        for _ in 0..<length {
+            let randomValue = arc4random_uniform(UInt32(base.count))
+            randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
+        }
+        return randomString
+    }
+    
 }

@@ -18,6 +18,10 @@ class MapHelper {
     init(with map:MKMapView) {
         self.map = map
     }
+    init()
+    {
+        self.map = nil
+    }
     func beginUpdate(with locationManager: CLLocationManager)
     {
         self.map?.showsUserLocation = true
@@ -33,6 +37,7 @@ class MapHelper {
         let regionZoom = MKCoordinateRegion(center: coordinate, latitudinalMeters: CLLocationDistance(dist), longitudinalMeters: CLLocationDistance(dist))
         self.map?.setRegion(regionZoom, animated: true)
     }
+    
     func sendLocation(_ locations: CLLocationCoordinate2D,referensi:String)
     {
         //let key = ref.childByAutoId().key
@@ -46,6 +51,20 @@ class MapHelper {
         print("addData")
         
     }
+    
+    func sendGroup(name: String, key: String)
+    {
+        //let key = ref.childByAutoId().key
+        ref = Database.database().reference().child("runners")
+        let location:[String:Any] = [
+            "id": "\(key)",
+            "nama": name
+        ]
+        ref.childByAutoId().child("groups").setValue(location)
+        print("addData")
+        
+    }
+    
     func Drawannotation(_ user:[RootClass])  {
         let allAnnotation = self.map?.annotations
         

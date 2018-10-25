@@ -14,10 +14,18 @@ class GroupViewController: UIViewController {
     
     @IBOutlet weak var joinButton: UIButton!
     
+    var mapHelp:MapHelper?
     
     let tabBarImageActive = ["groupTabBar_Active", "runTabBar_ActiveS", "historyTabBar_Active"]
     let tabBarImageInactive = ["groupTabBar_Inactive","runTabBar_Inactive","historyTabBar_Inactive" ]
     
+    var namaUser = ""
+    var grupUser = ""
+    var key1 = ""
+    var key2 = ""
+    var key3 = ""
+    var key4 = ""
+    var fullKode = ""
     
     func setTabItem() {
         for i in 0 ..< tabBarImageActive.count
@@ -36,6 +44,7 @@ class GroupViewController: UIViewController {
         // Do any additional setup after loading the view.
         setTabItem()
         CustomUIGroup()
+        mapHelp = MapHelper()
         
     }
     
@@ -47,13 +56,6 @@ class GroupViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-//        if segue.identifier == "ResultShow" {
-//            return
-//        } else if segue.identifier == "ResultShowFromJoin" {
-//            let vc = segue.destination as! ResultGroupViewController
-//            vc.code1Label.text = "9"
-//        }
-        
         if segue.identifier == "CreateSeague" {
             let vc = segue.destination as! CreateGroupViewController
             vc.delegate = self
@@ -61,6 +63,15 @@ class GroupViewController: UIViewController {
         } else if segue.identifier == "JoinSeague" {
             let vc = segue.destination as! JoinGroupViewController
             vc.delegate = self
+        } else if segue.identifier == "ResultShow" {
+            let vc = segue.destination as! ResultGroupViewController
+            vc.name = namaUser
+            vc.groupName = grupUser
+            vc.code1 = key1
+            vc.code2 = key2
+            vc.code3 = key3
+            vc.code4 = key4
+            vc.fullKode = fullKode
         }
         print("masoeks sini dulu")
     }
@@ -71,6 +82,7 @@ class GroupViewController: UIViewController {
         //        vc.modalTransitionStyle = .crossDissolve
         //        vc.modalPresentationStyle = .overCurrentContext
         //        self.present(vc, animated: true, completion: nil)
+        
     }
     
     @IBAction func joinbutton(_ sender: UIButton) {
@@ -90,8 +102,17 @@ class GroupViewController: UIViewController {
 }
 
 extension GroupViewController : CreateGroupDelegate {
-    func somethingDismiss() {
+    func somethingDismiss(nama : String, grup : String) {
+        self.namaUser = nama
+        self.grupUser = grup
+        key1 = String.random1()
+        key2 = String.random1()
+        key3 = String.random1()
+        key4 = String.random1()
+        fullKode = key1+key2+key3+key4
+        mapHelp?.sendGroup(name: namaUser, key: fullKode)
         self.performSegue(withIdentifier: "ResultShow", sender: nil)
+        print("ini ", nama, grup)
     }
 }
     

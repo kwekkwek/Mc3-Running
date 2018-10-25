@@ -9,10 +9,10 @@
 import UIKit
 
 protocol CreateGroupDelegate {
-    func somethingDismiss()
+    func somethingDismiss(nama: String, grup: String)
 }
 
-class CreateGroupViewController: UIViewController {
+class CreateGroupViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var CreateView: UIView!
     @IBOutlet weak var usernameField: UITextField!
@@ -23,6 +23,8 @@ class CreateGroupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         CustomUICreate()
+        usernameField.delegate = self
+        groupNameField.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -30,7 +32,7 @@ class CreateGroupViewController: UIViewController {
         
         self.dismiss(animated: false) {
             guard let delegate = self.delegate else {return}
-            delegate.somethingDismiss()
+            delegate.somethingDismiss(nama :self.usernameField.text!, grup: self.groupNameField.text!)
         }
     }
     
@@ -43,6 +45,14 @@ class CreateGroupViewController: UIViewController {
         usernameField.layer.cornerRadius = 20
         groupNameField.layer.cornerRadius = 20
         
+    }
+    
+    /**
+     * Called when 'return' key pressed. return NO to ignore.
+     */
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 
 }
