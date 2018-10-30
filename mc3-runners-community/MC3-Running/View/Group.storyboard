@@ -37,7 +37,7 @@ if you want to go far go together</string>
                                 <state key="normal" image="joinGroup_button"/>
                                 <connections>
                                     <action selector="joinbutton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2SA-LG-2oB"/>
-                                    <segue destination="Lty-R0-hbK" kind="presentation" id="jia-5S-MQo"/>
+                                    <segue destination="Lty-R0-hbK" kind="presentation" identifier="JoinSeague" id="jia-5S-MQo"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mU7-6s-MaC">
@@ -332,7 +332,7 @@ if you want to go far go together</string>
                                 <state key="normal" image="leaveGroup_button"/>
                                 <connections>
                                     <action selector="leaveGroupButton:" destination="Wy8-AK-PqG" eventType="touchUpInside" id="v5Y-Rf-L9c"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="t73-N9-Rff"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="LeaveGroup" id="t73-N9-Rff"/>
                                 </connections>
                             </button>
                         </subviews>

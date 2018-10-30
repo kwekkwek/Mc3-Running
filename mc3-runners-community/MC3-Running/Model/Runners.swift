@@ -64,6 +64,8 @@ struct Member: Codable {
         case joinTime = "joinTime"
     }
 }
+
+
 struct Route: Codable {
     let idRoute, start, finish: String?
     let checkPoint: [checkPoint]
@@ -92,6 +94,30 @@ struct RootClass:Codable {
         case latitude = "latitude"
     }
 }
+struct History: Codable {
+    let pace, distance, calories, dateTime: String?
+    enum CodingKeys: String, CodingKey {
+        case pace = "pace"
+        case distance = "distance"
+        case calories = "calories"
+        case dateTime = "dateTime"
+    }
+}
+
+struct Histories: Codable {
+    let histories:[History]?
+    enum CodingKeys: String, CodingKey {
+        case histories = "history"
+    }
+//    init(from decoder: Decoder) throws {
+//        let values = try decoder.container(keyedBy: CodingKeys.self)
+//        histories = try values.decodeIfPresent([History].self, forKey: .histories)
+//    }
+//    
+}
+
+
+
 extension String {
     
     static func random(length: Int = 4) -> String {

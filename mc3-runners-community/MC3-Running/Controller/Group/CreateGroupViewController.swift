@@ -25,11 +25,13 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate {
         CustomUICreate()
         usernameField.delegate = self
         groupNameField.delegate = self
+        let userName = UserDefaults.standard.string(forKey: "username")
+        print(userName)
         // Do any additional setup after loading the view.
     }
     
     @IBAction func CreateGroup(_ sender: Any) {
-        
+        print("delegate nih", self.delegate)
         self.dismiss(animated: false) {
             guard let delegate = self.delegate else {return}
             delegate.somethingDismiss(nama :self.usernameField.text!, grup: self.groupNameField.text!)

@@ -61,7 +61,20 @@ class MapHelper {
             "nama": name
         ]
         ref.childByAutoId().child("groups").setValue(location)
-        print("addData")
+        print("addDataSend")
+        
+    }
+    
+    func memberInput(name: String, key: String)
+    {
+        //let key = ref.childByAutoId().key
+        ref = Database.database().reference().child("runners/groups")
+        let member:[String:Any] = [
+            "idMember": "\(key)",
+            "namaMember": name
+        ]
+        ref.child("member").setValue(member)
+        print("addDataSend")
         
     }
     

@@ -46,6 +46,27 @@ class GroupViewController: UIViewController {
         CustomUIGroup()
         mapHelp = MapHelper()
         
+        let userName = UserDefaults.standard.string(forKey: "userName")
+        if userName! != "" {
+            grupUser = UserDefaults.standard.string(forKey: "groupName")!
+            namaUser = userName!
+            fullKode = UserDefaults.standard.string(forKey: "groupCode")!
+            let string = fullKode
+            let start = String.Index(encodedOffset: 0)
+            let end = String.Index(encodedOffset: 1)
+            key1 = String(string[start..<end])
+            let start1 = String.Index(encodedOffset: 1)
+            let end1 = String.Index(encodedOffset: 2)
+            key2 = String(string[start1..<end1])
+            let start2 = String.Index(encodedOffset: 2)
+            let end2 = String.Index(encodedOffset: 3)
+            key3 = String(string[start2..<end2])
+            let start3 = String.Index(encodedOffset: 3)
+            let end3 = String.Index(encodedOffset: 4)
+            key4 = String(string[start3..<end3])
+            performSegue(withIdentifier: "ResultShow", sender: nil)
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +85,15 @@ class GroupViewController: UIViewController {
             let vc = segue.destination as! JoinGroupViewController
             vc.delegate = self
         } else if segue.identifier == "ResultShow" {
+            let vc = segue.destination as! ResultGroupViewController
+            vc.name = namaUser
+            vc.groupName = grupUser
+            vc.code1 = key1
+            vc.code2 = key2
+            vc.code3 = key3
+            vc.code4 = key4
+            vc.fullKode = fullKode
+        } else if segue.identifier == "JoinShow" {
             let vc = segue.destination as! ResultGroupViewController
             vc.name = namaUser
             vc.groupName = grupUser
@@ -117,8 +147,25 @@ extension GroupViewController : CreateGroupDelegate {
 }
     
 extension GroupViewController : JoinGroupDelegate {
-        func onethingDismiss() {
-    self.performSegue(withIdentifier: "JoinShow", sender: nil)
+    func onethingDismiss(nama: String, group: String, kode: String) {
+        self.grupUser = group
+        self.namaUser = nama
+        fullKode = kode
+        let string = kode
+        let start = String.Index(encodedOffset: 0)
+        let end = String.Index(encodedOffset: 1)
+        key1 = String(string[start..<end])
+        let start1 = String.Index(encodedOffset: 1)
+        let end1 = String.Index(encodedOffset: 2)
+        key2 = String(string[start1..<end1])
+        let start2 = String.Index(encodedOffset: 2)
+        let end2 = String.Index(encodedOffset: 3)
+        key3 = String(string[start2..<end2])
+        let start3 = String.Index(encodedOffset: 3)
+        let end3 = String.Index(encodedOffset: 4)
+        key4 = String(string[start3..<end3])
+        print("ini sub ", kode)
+        self.performSegue(withIdentifier: "JoinShow", sender: nil)
     }
 }
 

@@ -21,8 +21,8 @@ class ViewDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        name.append("Gun (Admin)")
-        name.append("Eight")
+//        name.append("Gun (Admin)")
+//        name.append("Eight")
         detailTabel.dataSource = self
         detailTabel.delegate = self
         updateTable()
