@@ -13,7 +13,7 @@
         <!--Run-->
         <scene sceneID="PWM-U4-JSh">
             <objects>
-                <viewController id="Giz-gt-GKJ" customClass="RunViewController" customModule="MC3_Running" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Run" id="Giz-gt-GKJ" customClass="RunViewController" customModule="MC3_Running" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="j46-ZO-uWm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -173,8 +173,11 @@
                     <navigationItem key="navigationItem" title="Run" id="2jA-yX-r8U"/>
                     <connections>
                         <outlet property="addRouteButton" destination="jxt-CZ-Qun" id="zne-5k-Obk"/>
+                        <outlet property="calorieLabel" destination="4hW-Wd-Bsa" id="mDe-BY-fNk"/>
+                        <outlet property="distanceLabel" destination="LOx-Ju-zdd" id="jC9-2B-Ho6"/>
                         <outlet property="endButton" destination="NSe-kT-iPM" id="9tD-ZY-Htg"/>
                         <outlet property="mapView" destination="Fvb-oz-3Ej" id="W0l-zx-4e3"/>
+                        <outlet property="paceLabel" destination="UFk-C2-0Ca" id="el8-ei-sbO"/>
                         <outlet property="recenterButton" destination="pC2-DM-J13" id="YZa-hY-l4D"/>
                         <outlet property="resumeButton" destination="yAb-lp-7cI" id="H5N-N6-3s6"/>
                         <outlet property="startButton" destination="IOC-ah-fCb" id="gkx-d4-5yI"/>
@@ -446,7 +449,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="AoZ-zJ-dqQ">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="229-bK-cwN" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="Main" automaticallyAdjustsScrollViewInsets="NO" id="229-bK-cwN" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" itemPositioning="centered" id="qce-b5-yEM">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -470,6 +473,11 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="K4o-Y9-4Vb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" id="xdQ-OA-2Ha">
                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-29"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="selectedIndex">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5oF-zo-Mua">

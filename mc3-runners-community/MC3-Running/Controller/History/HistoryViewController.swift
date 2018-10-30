@@ -5,13 +5,17 @@
 //  Created by Gun Eight  on 12/10/18.
 //  Copyright © 2018 Benny Kurniawan. All rights reserved.
 //
-
+import Foundation
 import UIKit
+import SwiftCharts
+import Charts
 
-class HistoryViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class HistoryViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     
-
+    
+    @IBOutlet weak var barChart: BarChartView!
+    
     @IBOutlet weak var historyTable: UITableView!
     
 
@@ -19,10 +23,13 @@ class HistoryViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var distance : [Double] = []
     var calori : [Double] = []
     var dateRun : [Date] = []
+    var axisFormatDelegate: IAxisValueFormatter?
+    var days : [String] = []
+    var pacer : [Double] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        axisFormatDelegate = self
             historyTable.delegate = self
         historyTable.dataSource = self
         
@@ -30,11 +37,44 @@ class HistoryViewController: UIViewController,UITableViewDelegate,UITableViewDat
         distance.append(5.14)
         calori.append(203.18)
         dateRun.append(NSDate() as Date)
+        days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        pacer = [10,5,6,9,4,8,7]
+        setChart(dataEntryX: days, dataEntryY: pacer)
+        graphUiCustom()
+       
+    }
+    func setChart(dataEntryX forX:[String],dataEntryY forY: [Double]) {
         
+        barChart.noDataText = "You need to provide data for the chart."
+        var dataEntries:[BarChartDataEntry] = []
+        for i in 0..<forX.count{
+            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(forY[i]) , data:  days as AnyObject?)
+            print(dataEntry)
+            dataEntries.append(dataEntry)
+        }
+        let chartDataSet = BarChartDataSet(values: dataEntries, label: "Pace")
+        let chartData = BarChartData(dataSet: chartDataSet)
+        barChart.data = chartData
+        let xAxisValue = barChart.xAxis
+        xAxisValue.valueFormatter = axisFormatDelegate
         
-        // Do any additional setup after loading the view.
     }
     
+    func graphUiCustom() {
+        barChart.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        barChart.xAxis.labelPosition = .bottom
+        barChart.xAxis.drawGridLinesEnabled = false
+        barChart.rightAxis.enabled = false
+        barChart.scaleYEnabled = false
+        barChart.scaleXEnabled = false
+        barChart.pinchZoomEnabled = false
+        barChart.doubleTapToZoomEnabled = false
+        barChart.legend.enabled = false
+        barChart.xAxis.drawGridLinesEnabled = false
+        barChart.xAxis.drawAxisLineEnabled = false
+        barChart.xAxis.axisLineColor = .clear
+        
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return speed.count
@@ -60,9 +100,13 @@ class HistoryViewController: UIViewController,UITableViewDelegate,UITableViewDat
     }
     
     
-
 }
-
+extension HistoryViewController: IAxisValueFormatter {
+    
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+    return days[Int(value)]
+    }
+}
 
 
 

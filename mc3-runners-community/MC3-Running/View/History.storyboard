@@ -18,10 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8XG-G9-Mxj">
-                                <rect key="frame" x="0.0" y="351" width="375" height="392"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8XG-G9-Mxj">
+                                <rect key="frame" x="0.0" y="406" width="375" height="323"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="323" id="VdE-Nq-zTp"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="85" id="Emd-Ej-pKK" customClass="HistoryTableViewCell" customModule="MC3_Running" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="85"/>
@@ -111,12 +113,26 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bIf-FF-Ae3" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="88" width="375" height="310"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.90980392160000001" green="0.97254901959999995" blue="0.99607843139999996" alpha="0.75208690069999995" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="8XG-G9-Mxj" secondAttribute="bottom" id="H2u-Ut-0nM"/>
+                            <constraint firstItem="8XG-G9-Mxj" firstAttribute="top" secondItem="bIf-FF-Ae3" secondAttribute="bottom" constant="8" id="WbW-lM-BjU"/>
+                            <constraint firstItem="8XG-G9-Mxj" firstAttribute="trailing" secondItem="LzN-o0-neF" secondAttribute="trailing" id="diL-D5-o8b"/>
+                            <constraint firstItem="bIf-FF-Ae3" firstAttribute="top" secondItem="LzN-o0-neF" secondAttribute="top" id="lM5-zm-fMl"/>
+                            <constraint firstItem="bIf-FF-Ae3" firstAttribute="leading" secondItem="LzN-o0-neF" secondAttribute="leading" id="pLV-dQ-tT2"/>
+                            <constraint firstItem="bIf-FF-Ae3" firstAttribute="trailing" secondItem="LzN-o0-neF" secondAttribute="trailing" id="pzz-3c-HiR"/>
+                            <constraint firstItem="8XG-G9-Mxj" firstAttribute="leading" secondItem="LzN-o0-neF" secondAttribute="leading" id="sk1-h1-rVn"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="LzN-o0-neF"/>
                     </view>
                     <navigationItem key="navigationItem" id="ZaG-tf-wKR"/>
                     <connections>
+                        <outlet property="barChart" destination="bIf-FF-Ae3" id="842-yF-QjR"/>
                         <outlet property="historyTable" destination="8XG-G9-Mxj" id="3Zc-ZP-VXC"/>
                     </connections>
                 </viewController>

@@ -12,18 +12,23 @@ import Firebase
  class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-
+    
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
      
         FirebaseApp.configure()
+        let tabBarController = self.window?.rootViewController as! UITabBarController
+        tabBarController.selectedIndex = 1
+       
         
 //        window = UIWindow(frame: UIScreen.main.bounds)
 //        window?.makeKeyAndVisible()
 //        window?.rootViewController = GroupViewController
         return true
     }
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -41,6 +46,7 @@ import Firebase
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
