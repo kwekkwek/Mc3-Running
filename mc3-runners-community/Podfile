@@ -8,6 +8,7 @@ target 'MC3-Running' do
   pod 'Firebase/Database', :inhibit_warnings => true
   pod 'Firebase/Auth', :inhibit_warnings => true
   pod 'Firebase/Storage', :inhibit_warnings => true
+  pod 'Charts'
   # Pods for MC3-Running
 
 end
