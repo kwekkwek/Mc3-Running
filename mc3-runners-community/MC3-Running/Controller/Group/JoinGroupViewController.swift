@@ -59,9 +59,9 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
                         
                         self.keyGroup = valueKey
                         self.namaGroup = "\(data["nama"]!)"
-//                        self.getMember(kode: valueKey)
+                        self.getMember(kode: valueKey)
                         print("delegate nih", self.delegate)
-                        self.setMember()
+//                        self.setMember()
                         
                     }
                 }
@@ -85,13 +85,16 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
 //        let ref = Database.database().reference().child("runners/-LQ24A7m2c0c-DAGelrc/groups/member")
         let his = History.init(pace: "", distance: "", calories: "", dateTime: "")
         let histoies = Histories.init(histories: [his])
+        let history:[String:Any] = [
+            "History": histoies
+        ]
         let ref = Database.database().reference().child("runners/\(self.keyGroup)/groups/member")
         self.nama = self.usernameField.text!
         let member:[String:Any] = [
             "namaMember": self.nama,
             "latitude": "",
             "longitude": "",
-            "history": [histoies]
+            "history": ""
         ]
         ref.childByAutoId().setValue(member)
         print("addDataSend")
@@ -133,8 +136,8 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
     }
 
     @IBAction func JoinGroup(_ sender: Any) {
-        getKey()
-//        setMember()
+//        getKey()
+        setMember()
     }
     
     @IBAction func CloseJoin(_ sender: Any) {
