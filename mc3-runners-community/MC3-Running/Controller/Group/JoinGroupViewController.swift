@@ -42,7 +42,6 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
     
     func getKey()
     {
-        
     Database.database().reference().child("runners").observe(.value) { snapshot in
             guard let values = snapshot.value as? [String:[String:Any]] else {return}
             print("ini adalah keys",values.keys)
@@ -60,8 +59,6 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
                         self.keyGroup = valueKey
                         self.namaGroup = "\(data["nama"]!)"
                         self.getMember(kode: valueKey)
-                        print("delegate nih", self.delegate)
-//                        self.setMember()
                         
                     }
                 }
@@ -83,11 +80,12 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
     
     func setMember(){
 //        let ref = Database.database().reference().child("runners/-LQ24A7m2c0c-DAGelrc/groups/member")
-        let his = History.init(pace: "", distance: "", calories: "", dateTime: "")
-        let histoies = Histories.init(histories: [his])
-        let history:[String:Any] = [
-            "History": histoies
-        ]
+//        let his = History.init(pace: "", distance: "", calories: "", dateTime: "")
+//        let histoies = Histories.init(histories: [his])
+//        let history:[String:Any] = [
+//            "History": histoies
+//        ]
+        
         let ref = Database.database().reference().child("runners/\(self.keyGroup)/groups/member")
         self.nama = self.usernameField.text!
         let member:[String:Any] = [
@@ -95,6 +93,24 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
             "latitude": "",
             "longitude": "",
             "history": ""
+        ]
+        ref.childByAutoId().setValue(member)
+        print("addDataSend")
+        self.goToNext()
+    }
+    
+    func setHistory(){
+        
+        let groupId = UserDefaults.standard.string(forKey: "groupId")
+        let userId = UserDefaults.standard.string(forKey: "userId")
+        
+        let ref = Database.database().reference().child("runners/\(groupId!)/groups/member/\(userId!)/history")
+        self.nama = self.usernameField.text!
+        let member:[String:Any] = [
+            "pace": "12.5",
+            "distance": "10",
+            "calorie": "2000",
+            "timeTotal": ""
         ]
         ref.childByAutoId().setValue(member)
         print("addDataSend")
@@ -122,9 +138,6 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
                         UserDefaults.standard.set(self.pinEntryText.text!, forKey: "groupCode")
                         UserDefaults.standard.set(self.namaGroup, forKey: "groupName")
                         
-//                        let userName = UserDefaults.standard.string(forKey: "username")
-//                        print(userName)
-                        
                         self.goToNext()
                     }
                 }
@@ -136,8 +149,8 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
     }
 
     @IBAction func JoinGroup(_ sender: Any) {
-//        getKey()
-        setMember()
+        getKey()
+//        setMember()
     }
     
     @IBAction func CloseJoin(_ sender: Any) {
