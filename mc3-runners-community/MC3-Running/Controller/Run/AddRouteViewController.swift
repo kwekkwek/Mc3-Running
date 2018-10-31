@@ -14,24 +14,31 @@ class AddRouteViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var LocationManager = CLLocationManager()
     var currentLocation:CLLocationCoordinate2D?
-    var direction: [CLLocationCoordinate2D] = []
     var mapHelp: MapHelper?
     @IBOutlet weak var currentLoc: UILabel!
-    
     @IBOutlet weak var enterPoint: UILabel!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var distanceKm: UILabel!
+    var counter:Int = 0
+    var totalDistance: Int = 0
+    var searchResults = UISearchController(searchResultsController: nil)
+    var direction: [CLLocationCoordinate2D] = []
+    
+    //@IBOutlet weak var saveButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapHelp = MapHelper(with: mapView)
         setupConfig()
-        getLocationName(with: currentLocation!)
         //setupGesture()
         let gesture = UILongPressGestureRecognizer(target: self, action: #selector(mapPressed(gestureReconizer:)))
         gesture.delegate = self
         gesture.delaysTouchesBegan = true
         gesture.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(gesture)
-
+        
+        print("asd",direction.count)
+        
     }
     func setupConfig()
     {
@@ -40,7 +47,34 @@ class AddRouteViewController: UIViewController, UIGestureRecognizerDelegate {
         mapView.delegate = self
         mapHelp?.beginUpdate(with: self.LocationManager)
         mapHelp?.zoomToLocation(with: currentLocation!)
-        direction.append(currentLocation!)
+        //direction.append(currentLocation!)
+        SetupSearchBar()
+        
+    }
+    
+    private func SetupSearchBar()
+    {
+        //func to setup searchbar
+        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "SearchLocation") as! TableViewController
+        searchResults = UISearchController(searchResultsController: locationSearchTable)
+        searchResults.searchResultsUpdater = locationSearchTable
+        let searching = searchResults.searchBar
+        searching.sizeToFit()
+        searching.placeholder = "Search Location"
+        
+        searchResults.hidesNavigationBarDuringPresentation = false
+        searchResults.dimsBackgroundDuringPresentation = true
+        searchResults.searchBar.delegate = self
+        navigationItem.titleView = searching
+        definesPresentationContext = true
+        
+        // func to sent variable
+        
+        locationSearchTable.mapView = self.mapView
+        locationSearchTable.currentLocation = self.currentLocation
+        locationSearchTable.counter = self.counter
+        locationSearchTable.direction = self.direction
+        locationSearchTable.delegate = self
     }
     @objc func mapPressed(gestureReconizer: UILongPressGestureRecognizer)
     {
@@ -50,16 +84,36 @@ class AddRouteViewController: UIViewController, UIGestureRecognizerDelegate {
         print(coordinate)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-        //annotation.title = coordinate
+        annotation.title = String("checkpoint \(counter+1)")
         //annotation.subtitle = ( "\(place.location!.coordinate)")
         self.direction.append(coordinate)
         self.mapView.addAnnotation(annotation)
-        drawMap()
-        
+        //self.counter = counter + 1
+        checkRoute()
+    }
+    
+    @IBAction func drawing(_ sender: Any) {
+        drawMultipleRoute()
+    }
+    
+    func drawMultipleRoute()
+    {
+        totalDistance = 0
+        for i in 0 ..< direction.count
+        {
+            //print(direction.count)
+            if i == direction.count-1
+            { return }
+            else
+            {
+                //print(direction[i],direction[i+1])
+                drawMap(source: direction[i], destination: direction[i+1])
+            }
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
-        self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = false
     }
     func getLocationName(with loc: CLLocationCoordinate2D)
     {
@@ -88,33 +142,37 @@ class AddRouteViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         })
     }
-    func drawMap()
+    func checkRoute()
     {
-        for directions in direction
+        if direction.count >= 2
         {
-        print("ini adalah data direction ", directions)
+            //self.saveButton.isHidden = false
         }
-        let coordinate1 = CLLocation(latitude: direction[0].latitude, longitude: direction[0].longitude)
-        let coordinate2 = CLLocation(latitude: direction[1].latitude, longitude: direction[1].longitude)
-        let distanceInMeters = coordinate1.distance(from: coordinate2)
-        print(distanceInMeters)
-        //self.enterPoint.text = "\(Int(distanceInMeters))"
+    }
+    func drawMap(source:CLLocationCoordinate2D, destination:CLLocationCoordinate2D)
+    {
+        
         let request = MKDirections.Request()
-        request.source = MKMapItem(placemark: MKPlacemark(coordinate: direction[0], addressDictionary: nil))
-        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: direction[1], addressDictionary: nil))
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: source, addressDictionary: nil))
+        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination, addressDictionary: nil))
         //request.requestsAlternateRoutes = true
         request.transportType = .walking
-
+        
         let directions = MKDirections(request: request)
-
+        
         directions.calculate { [unowned self] response, error in
             guard let unwrappedResponse = response else { return }
             print("respon",unwrappedResponse)
             
             for route in unwrappedResponse.routes {
-                self.enterPoint.text   = "\(Int(route.distance))"
-                self.mapView.addOverlay(route.polyline)
-                self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+                DispatchQueue.main.async {
+                    print("ini adalah route ",Int(route.distance))
+                    self.totalDistance += Int(route.distance)
+                    self.enterPoint.text = "\(self.totalDistance)"
+                    self.mapView.addOverlay(route.polyline)
+                    self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+                }
+                
             }
         }
     }
@@ -136,6 +194,25 @@ extension AddRouteViewController: MKMapViewDelegate
         renderer.lineWidth = 5
         renderer.alpha = 1
         return renderer
+    }
+    
+}
+extension AddRouteViewController: UISearchBarDelegate
+{
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        checkRoute()
+    }
+    
+}
+extension AddRouteViewController: sentData
+{
+    func directionUpdated(directions: CLLocationCoordinate2D, counter: Int) {
+        
+        print("ini adalah sebelum : ",direction.count)
+        self.direction.append(directions)
+        self.counter = self.counter + counter
+        print("ini adalah setelah : ",direction.count)
     }
     
 }

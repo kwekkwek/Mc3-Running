@@ -46,10 +46,11 @@ class GroupViewController: UIViewController {
         CustomUIGroup()
         mapHelp = MapHelper()
         
-        let userName = UserDefaults.standard.string(forKey: "userName")
-        if userName! != "" {
+        let username = UserDefaults.standard.string(forKey: "userName")
+        guard let userName = username else {return}
+        if userName != "" {
             grupUser = UserDefaults.standard.string(forKey: "groupName")!
-            namaUser = userName!
+            namaUser = userName
             fullKode = UserDefaults.standard.string(forKey: "groupCode")!
             let string = fullKode
             let start = String.Index(encodedOffset: 0)

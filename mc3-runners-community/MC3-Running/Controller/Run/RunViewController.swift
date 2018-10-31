@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import Firebase
+import FirebaseDatabase
 import Foundation
 
 class RunViewController: UIViewController {
@@ -276,7 +277,7 @@ extension RunViewController: CLLocationManagerDelegate
             mapHelp?.zoomToLocation(with: lastlocation.coordinate)
         }
         //limit time and distance update
-        locationManager.allowDeferredLocationUpdates(untilTraveled: CLLocationDistanceMax, timeout: 10)
+        locationManager.allowDeferredLocationUpdates(untilTraveled: CLLocationDistanceMax, timeout: 60)
         currentCoordinate = lastlocation.coordinate
         
         
