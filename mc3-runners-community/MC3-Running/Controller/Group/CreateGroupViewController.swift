@@ -32,10 +32,32 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func CreateGroup(_ sender: Any) {
         print("delegate nih", self.delegate)
-        self.dismiss(animated: false) {
-            guard let delegate = self.delegate else {return}
-            delegate.somethingDismiss(nama :self.usernameField.text!, grup: self.groupNameField.text!)
+        if self.usernameField.text! == "" || self.groupNameField.text! == "" {
+            showAlert(msg: "Please insert username and groupname")
+        } else {
+            self.dismiss(animated: false) {
+                guard let delegate = self.delegate else {return}
+                delegate.somethingDismiss(nama :self.usernameField.text!, grup: self.groupNameField.text!)
+            }
         }
+    }
+    
+    func showAlert(msg: String) {
+        let alert = UIAlertController(title: "PPOINT", message: msg, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+                
+            }}))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func CloseButton(_ sender: Any) {

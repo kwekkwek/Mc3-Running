@@ -77,14 +77,14 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
     
     func cekGroup() {
         if self.keyGroup == "" {
-            showAlert()
+            showAlert(msg: "No Group Found")
         } else{
             self.getMember(kode: self.keyGroup)
         }
     }
     
-    func showAlert() {
-        let alert = UIAlertController(title: "PPOINT", message: "No Group Found", preferredStyle: UIAlertController.Style.alert)
+    func showAlert(msg: String) {
+        let alert = UIAlertController(title: "PPOINT", message: msg, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             switch action.style{
             case .default:
@@ -189,8 +189,13 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
     }
 
     @IBAction func JoinGroup(_ sender: Any) {
-        getKey()
-//        setMember()
+        print("tes \(self.pinEntryText.text)")
+        let kod = self.pinEntryText.text
+        if kod == nil || self.usernameField.text! == ""  {
+            showAlert(msg: "Please insert username and code")
+        } else {
+            getKey()
+        }
     }
     
     @IBAction func CloseJoin(_ sender: Any) {
