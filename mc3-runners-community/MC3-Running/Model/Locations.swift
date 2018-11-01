@@ -54,7 +54,7 @@ class MapHelper {
     
     func sendGroup(name: String, key: String)
     {
-        //let key = ref.childByAutoId().key
+//        let keyG = ref.childByAutoId().key
         ref = Database.database().reference().child("runners")
         let location:[String:Any] = [
             "id": "\(key)",
@@ -62,7 +62,6 @@ class MapHelper {
         ]
         ref.childByAutoId().child("groups").setValue(location)
         print("addDataSend")
-        
     }
     
     func memberInput(name: String, key: String)

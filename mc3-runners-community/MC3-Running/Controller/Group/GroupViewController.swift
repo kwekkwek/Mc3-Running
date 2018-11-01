@@ -27,6 +27,8 @@ class GroupViewController: UIViewController {
     var key3 = ""
     var key4 = ""
     var fullKode = ""
+    var namaGrup = ""
+    var keyGroup = ""
     
     func setTabItem() {
         for i in 0 ..< tabBarImageActive.count
@@ -110,11 +112,6 @@ class GroupViewController: UIViewController {
     
     @IBAction func createGroup(_ sender: UIButton ) {
         
-        //        let vc = CreateGroupViewController()
-        //        vc.modalTransitionStyle = .crossDissolve
-        //        vc.modalPresentationStyle = .overCurrentContext
-        //        self.present(vc, animated: true, completion: nil)
-        
     }
     
     @IBAction func joinbutton(_ sender: UIButton) {
@@ -125,7 +122,86 @@ class GroupViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9098039216, green: 0.9725490196, blue: 0.9960784314, alpha: 1)
         tabBarController?.tabBar.barTintColor = #colorLiteral(red: 0.9098039216, green: 0.9725490196, blue: 0.9960784314, alpha: 1)
     }
-//
+    
+    func setMember(keyGroup: String){
+        
+        let ref = Database.database().reference().child("runners/\(keyGroup)/groups/member")
+        let member:[String:Any] = [
+            "namaMember": self.namaUser,
+            "isAdmin":"true"
+        ]
+        ref.childByAutoId().setValue(member)
+        print("addDataSend")
+        getMember(kode: keyGroup)
+    }
+    
+    func getMember(kode: String){
+        
+        var counter: Int = 0
+        
+        Database.database().reference().child("runners/\(kode)/groups/member").observe(.value) { snapshot in
+            guard let values = snapshot.value as? [String:[String:Any]] else {return}
+            print("ini adalah keys",values.keys)
+            do{
+                for valueKey in values.keys
+                {
+                    counter = counter + 1
+                    guard let groupsDictionary = values[valueKey] else {return}
+                    print("ini group dictionary = ",groupsDictionary)
+                    if "\(groupsDictionary["namaMember"]!)" == self.namaUser {
+                        print("ini member \(groupsDictionary["namaMember"]!)")
+                        
+                        UserDefaults.standard.set(self.namaUser, forKey: "userName")
+                        UserDefaults.standard.set(self.keyGroup, forKey: "groupId")
+                        UserDefaults.standard.set(valueKey, forKey: "userId")
+                        UserDefaults.standard.set(self.fullKode, forKey: "groupCode")
+                        UserDefaults.standard.set(self.grupUser, forKey: "groupName")
+                        
+                        self.performSegue(withIdentifier: "ResultShow", sender: nil)
+                        
+                    }
+                }
+            }
+            catch {
+            }
+        }
+        
+    }
+    
+    func getKey()
+    {
+        var counter: Int = 0
+        Database.database().reference().child("runners").observe(.value) { snapshot in
+            guard let values = snapshot.value as? [String:[String:Any]] else {return}
+            print("ini adalah keys",values.keys)
+            print("ini kode", self.fullKode)
+            do{
+                for valueKey in values.keys
+                {
+                    counter = counter+1
+                    guard let groupsDictionary = values[valueKey] else {return}
+                    print("ini group dictionary = ",groupsDictionary)
+                    guard let data = groupsDictionary["groups"] as? [String: Any] else {return}
+                    print("data id \(data["id"]!)")
+                    if "\(data["id"]!)" == self.fullKode {
+                        print("ini temuan \(data["id"]!) \(data["nama"]!) \(valueKey)")
+                        
+                        self.keyGroup = valueKey
+                        self.namaGrup = "\(data["nama"]!)"
+                        
+                    }
+                    print("udah nih hitung \(counter) \(values.count)")
+                    if counter == values.count {
+                        print("cie masuk cek group")
+                        self.setMember(keyGroup: self.keyGroup)
+                    }
+                    
+                }
+            }
+            catch {}
+        }
+    }
+
 //    override func viewWillDisappear(_ animated: Bool) {
 //        super.viewWillDisappear(animated)
 //        self.navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -135,6 +211,7 @@ class GroupViewController: UIViewController {
 
 extension GroupViewController : CreateGroupDelegate {
     func somethingDismiss(nama : String, grup : String) {
+        print("ini ", nama, grup)
         self.namaUser = nama
         self.grupUser = grup
         key1 = String.random1()
@@ -142,9 +219,8 @@ extension GroupViewController : CreateGroupDelegate {
         key3 = String.random1()
         key4 = String.random1()
         fullKode = key1+key2+key3+key4
-        mapHelp?.sendGroup(name: namaUser, key: fullKode)
-        self.performSegue(withIdentifier: "ResultShow", sender: nil)
-        print("ini ", nama, grup)
+        mapHelp?.sendGroup(name: grupUser, key: fullKode)
+        self.getKey()
     }
 }
     

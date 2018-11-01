@@ -42,6 +42,7 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
     
     func getKey()
     {
+        var counter: Int = 0
     Database.database().reference().child("runners").observe(.value) { snapshot in
             guard let values = snapshot.value as? [String:[String:Any]] else {return}
             print("ini adalah keys",values.keys)
@@ -49,6 +50,7 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
             do{
                 for valueKey in values.keys
                 {
+                    counter = counter+1
                     guard let groupsDictionary = values[valueKey] else {return}
                     print("ini group dictionary = ",groupsDictionary)
                     guard let data = groupsDictionary["groups"] as? [String: Any] else {return}
@@ -58,13 +60,45 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
                         
                         self.keyGroup = valueKey
                         self.namaGroup = "\(data["nama"]!)"
-                        self.getMember(kode: valueKey)
+//                        self.getMember(kode: valueKey)
                         
                     }
+                    print("udah nih hitung \(counter) \(values.count)")
+                    if counter == values.count {
+                     print("cie masuk cek group")
+                        self.cekGroup()
+                    }
+                    
                 }
             }
             catch {}
         }
+    }
+    
+    func cekGroup() {
+        if self.keyGroup == "" {
+            showAlert()
+        } else{
+            self.getMember(kode: self.keyGroup)
+        }
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "PPOINT", message: "No Group Found", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+                
+            }}))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func goToNext() {
@@ -79,6 +113,7 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
     }
     
     func setMember(){
+        
 //        let ref = Database.database().reference().child("runners/-LQ24A7m2c0c-DAGelrc/groups/member")
 //        let his = History.init(pace: "", distance: "", calories: "", dateTime: "")
 //        let histoies = Histories.init(histories: [his])
@@ -90,9 +125,7 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
         self.nama = self.usernameField.text!
         let member:[String:Any] = [
             "namaMember": self.nama,
-            "latitude": "",
-            "longitude": "",
-            "history": ""
+            "isAdmin":"false"
         ]
         ref.childByAutoId().setValue(member)
         print("addDataSend")
@@ -118,6 +151,8 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
     }
     
     func getMember(kode: String){
+        
+        var counter: Int = 0
     
         Database.database().reference().child("runners/\(kode)/groups/member").observe(.value) { snapshot in
             guard let values = snapshot.value as? [String:[String:Any]] else {return}
@@ -126,6 +161,7 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
             do{
                 for valueKey in values.keys
                 {
+                    counter = counter + 1
                     guard let groupsDictionary = values[valueKey] else {return}
                     print("ini group dictionary = ",groupsDictionary)
                     if "\(groupsDictionary["namaMember"]!)" == self.usernameField.text {
@@ -138,8 +174,12 @@ class JoinGroupViewController: UIViewController, PinCodeTextFieldDelegate {
                         UserDefaults.standard.set(self.pinEntryText.text!, forKey: "groupCode")
                         UserDefaults.standard.set(self.namaGroup, forKey: "groupName")
                         
+                    }
+                    
+                    if counter == values.count {
                         self.goToNext()
                     }
+                    
                 }
             }
             catch {
