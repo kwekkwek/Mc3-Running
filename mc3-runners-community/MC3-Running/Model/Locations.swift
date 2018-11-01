@@ -27,9 +27,9 @@ class MapHelper {
         self.map?.showsUserLocation = true
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.distanceFilter = 7
         locationManager.startUpdatingLocation()
-        //locationManager.activityType = .fitness
+        locationManager.activityType = .fitness
     }
     func zoomToLocation(with coordinate:CLLocationCoordinate2D)
     {
