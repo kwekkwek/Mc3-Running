@@ -21,6 +21,10 @@ import Firebase
         FirebaseApp.configure()
         let tabBarController = self.window?.rootViewController as! UITabBarController
         tabBarController.selectedIndex = 1
+        
+        
+        
+        print("ini dulu gengss")
        
         
 //        window = UIWindow(frame: UIScreen.main.bounds)

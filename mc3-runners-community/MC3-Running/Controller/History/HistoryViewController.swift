@@ -88,7 +88,7 @@ class HistoryViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         
         if indexPath.row % 2  == 0{
-            cell.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.9264979362, green: 0.9778947234, blue: 0.9970450997, alpha: 1)
             
         }
         else{

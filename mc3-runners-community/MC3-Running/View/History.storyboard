@@ -35,13 +35,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="81" translatesAutoresizingMaskIntoConstraints="NO" id="S1V-mC-cRe">
                                                     <rect key="frame" x="52" y="26" width="271" height="30"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speedometer" translatesAutoresizingMaskIntoConstraints="NO" id="jmM-pH-EB7">
+                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pace_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="jmM-pH-EB7">
                                                             <rect key="frame" x="0.0" y="0.0" width="36.333333333333336" height="30"/>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Fill 26" translatesAutoresizingMaskIntoConstraints="NO" id="2HA-xF-WNu">
+                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="distance_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="2HA-xF-WNu">
                                                             <rect key="frame" x="117.33333333333333" y="0.0" width="36.333333333333329" height="30"/>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-fire_element-1" translatesAutoresizingMaskIntoConstraints="NO" id="Wc5-Pr-4by">
+                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calories_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="Wc5-Pr-4by">
                                                             <rect key="frame" x="234.66666666666669" y="0.0" width="36.333333333333314" height="30"/>
                                                         </imageView>
                                                     </subviews>
@@ -164,8 +164,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Fill 26" width="13" height="19"/>
-        <image name="icons8-fire_element-1" width="15" height="19"/>
-        <image name="speedometer" width="31" height="18"/>
+        <image name="calories_Icon" width="65" height="56"/>
+        <image name="distance_Icon" width="65" height="56"/>
+        <image name="pace_Icon" width="65" height="56"/>
     </resources>
 </document>
