@@ -18,7 +18,7 @@ class RunViewController: UIViewController {
     let locationManager = CLLocationManager()
     var ref: DatabaseReference!
     var currentCoordinate:CLLocationCoordinate2D?
-    var namas:String = "Benny"
+    var namas:String = "Eight"
    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addRouteButton: UIButton!
@@ -48,8 +48,10 @@ class RunViewController: UIViewController {
     var forPace : String = ""
     var forDistance : String = ""
     var forCalorie : String = ""
-    var distance = Measurement(value: 0, unit: UnitLength.meters)
+    var distanceCurrent = Measurement(value: 0, unit: UnitLength.meters)
     var locationList :[CLLocation] = []
+    var paceTemp : String = ""
+    var dateRun : String = ""
     
     
 
@@ -58,15 +60,31 @@ class RunViewController: UIViewController {
         mapHelp = MapHelper(with: mapView)
         configurePermission()
         ReadyRun()
-
+        setTabItem()
+        CustomUIGroup()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
         self.tabBarController?.tabBar.isHidden = false
         print("Jalankan ini")
     }
+    func CustomUIGroup()  {
+        navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9098039216, green: 0.9725490196, blue: 0.9960784314, alpha: 1)
+        tabBarController?.tabBar.barTintColor = #colorLiteral(red: 0.9098039216, green: 0.9725490196, blue: 0.9960784314, alpha: 1)
+    }
     
-    
+    func setTabItem() {
+        for i in 0 ..< tabBarImageActive.count
+        {
+            print("Ini item")
+            self.tabBarController?.tabBar.items?[i].image = UIImage(named: tabBarImageInactive[i])
+            self.tabBarController?.tabBar.items?[i].selectedImage = UIImage(named: tabBarImageActive[i])
+            
+            print(i)
+            
+        }
+    }
     @IBAction func reCenterMap(_ sender: Any) {
         mapHelp!.zoomToLocation(with: currentCoordinate!)
     }
@@ -168,8 +186,10 @@ class RunViewController: UIViewController {
     }
     
     func  updateDisplay() {
-        forDistance = FormatDisplay.distance(distance)
-        forPace = FormatDisplay.pace(distance: distance, seconds: secs, outputUnit: UnitSpeed.minutesPerKilometer)
+        forDistance = FormatDisplay.distances(distanceCurrent)
+        print("current distance \(distanceCurrent)")
+        
+        forPace = paceTemp
         forTime = FormatDisplay.time(secs)
         
         DispatchQueue.main.async {
@@ -177,26 +197,25 @@ class RunViewController: UIViewController {
             self.timeLabel.text = self.forTime
             self.paceLabel.text = self.forPace
             self.calorieLabel.text = self.forCalorie
-            
-            print("ini display jarak =\(self.distance)")
+            self.dateRun = FormatDisplay.date(Date())
+            print("the date \(FormatDisplay.date(Date()))")
+            print("ini display jarak =\(self.forDistance)")
         }
-      
-        
-       
-        
     }
+    
     func ReadyRun() {
         self.timeLabel.text = "0:00:00"
-        self.paceLabel.text = "0 m/km"
+        self.paceLabel.text = "0 min/km"
         self.distanceLabel.text = "0 km"
-        self.calorieLabel.text = "0 cal"
+        self.calorieLabel.text = "0 kcal"
+        self.distanceCurrent = Measurement(value: 0, unit: UnitLength.meters)
+         paceTemp = FormatDisplay.pace(distance: distanceCurrent, seconds: secs, outputUnit: UnitSpeed.minutesPerKilometer)
         self.startButton.tag = 0
         self.secs =  0
         self.startButton.setBackgroundImage(UIImage(named: "startRun_button"), for : UIControl.State.normal)
         self.startButton.isHidden = false
         self.resumeButton.isHidden = true
         self.endButton.isHidden = true
-        self.distance = Measurement(value: 0, unit: UnitLength.meters)
         locationList.removeAll()
 
     }
@@ -206,7 +225,7 @@ class RunViewController: UIViewController {
         self.startButton.isHidden = true
         self.resumeButton.isHidden = false
         self.endButton.isHidden = false
-        locationManager.stopUpdatingLocation()
+//        locationManager.stopUpdatingLocation()
     }
     
     func ResumeAct()  {
@@ -215,9 +234,29 @@ class RunViewController: UIViewController {
         self.resumeButton.isHidden = true
         self.endButton.isHidden = true
         self.startButton.setBackgroundImage(UIImage(named: "pauseRun_button"), for : UIControl.State.normal)
+        
     }
     
     func SaveRun() {
+        
+        
+
+            let groupId = UserDefaults.standard.string(forKey: "groupId")
+            let userId = UserDefaults.standard.string(forKey: "userId")
+
+            let ref = Database.database().reference().child("runners/\(groupId!)/groups/member/\(userId!)/history")
+    
+            let member:[String:Any] = [
+                "pace": "\(forPace)",
+                "distance": "\(forDistance)",
+                "calorie": "\(forCalorie)",
+                "timeTotal": "\(forTime)",
+                "date" : "\(dateRun)"
+        ]
+            ref.childByAutoId().setValue(member)
+            print("addDataSend")
+        
+        
         
         let totalTime = self.forTime
         let totalDistance = self.forDistance
@@ -241,6 +280,7 @@ class RunViewController: UIViewController {
         
         let noAction = UIAlertAction(title: "No", style: UIAlertAction.Style.cancel){(_) in
             self.ReadyRun()
+            
         }
         
         alert.addAction(yesAction)
@@ -272,33 +312,39 @@ extension RunViewController: CLLocationManagerDelegate
             getKey()
             Drawannotation(users)
         }
+        
         if currentCoordinate == nil
         {
             mapHelp?.zoomToLocation(with: lastlocation.coordinate)
+
         }
-        //limit time and distance update
-        locationManager.allowDeferredLocationUpdates(untilTraveled: CLLocationDistanceMax, timeout: 60)
-        currentCoordinate = lastlocation.coordinate
         
+        //limit time and distance update
+        locationManager.allowDeferredLocationUpdates(untilTraveled: kCLLocationAccuracyBest, timeout: 5 )
+        currentCoordinate = lastlocation.coordinate
+
         
         for newLocation in locations {
-            let howRecent = newLocation.timestamp.timeIntervalSinceNow
-
-           
-            guard newLocation.horizontalAccuracy < 20 && abs(howRecent) < 10 else { continue }
+//            let howRecent = newLocation.timestamp.timeIntervalSinceNow
+//            guard newLocation.horizontalAccuracy < 5 && abs(howRecent) < 5 else { continue }
 
             if let lastLocation = locationList.last {
+                print("Ini last location = \(lastLocation)")
                 let delta = newLocation.distance(from: lastLocation)
-                distance = distance + Measurement(value: delta, unit: UnitLength.meters)
-                let tempCalorie = distance * 60
-                self.forCalorie = "\(tempCalorie)"
+                distanceCurrent = distanceCurrent + Measurement(value: delta, unit: UnitLength.meters)
+                paceTemp = FormatDisplay.pace(distance: distanceCurrent, seconds: secs, outputUnit: UnitSpeed.minutesPerKilometer)
+                print("ini lokasi =\( delta)")
+                print("ini jarak  update =  \(distanceCurrent)")
+                let tempCalorie = distanceCurrent*60/1000
+                let forcal = String(format: "%.2f", tempCalorie as CVarArg)
+                print("ini kalori \(tempCalorie)")
                 DispatchQueue.main.async {
-                    
-                    
-                    self.calorieLabel.text = "\(self.forCalorie)"
-                    print("ini lokasi =\(delta)")
+                    self.forPace = self.paceTemp
+                    self.forDistance = "\(self.distanceCurrent)"
+                    self.forCalorie = forcal
+                    print("new distance = \(self.forDistance)")
                 }
-                print("ini jarak  bbbbbbbbb  \(distance)")
+                
             }
             locationList.append(newLocation)
             print(locationList)
