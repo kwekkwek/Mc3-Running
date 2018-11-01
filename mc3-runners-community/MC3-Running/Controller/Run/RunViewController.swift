@@ -19,6 +19,7 @@ class RunViewController: UIViewController {
     var ref: DatabaseReference!
     var currentCoordinate:CLLocationCoordinate2D?
     var namas:String = "Eight"
+    var userName:String?
    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addRouteButton: UIButton!
@@ -38,7 +39,7 @@ class RunViewController: UIViewController {
     var nama: String?
     var launch : Bool = true
     
-    let tabBarImageActive = ["groupTabBar_Active", "runTabBar_ActiveS", "historyTabBar_Active"]
+    let tabBarImageActive = ["groupTabBar_Active", "runTabBar_Active", "historyTabBar_Active"]
     let tabBarImageInactive = ["groupTabBar_Inactive","runTabBar_Inactive","historyTabBar_Inactive" ]
     
     //variabels for calculate pace, distance and calorie
@@ -62,6 +63,16 @@ class RunViewController: UIViewController {
         ReadyRun()
         setTabItem()
         CustomUIGroup()
+        guard let groupId = UserDefaults.standard.string(forKey: "groupId") else {return}
+        guard let userId = UserDefaults.standard.string(forKey: "userId") else {return}
+        userName = UserDefaults.standard.string(forKey: "userName")
+        print("ini user name ", userName!)
+//        if userName != ""{
+//            //sendLocation(lastlocation.coordinate)
+//            mapHelp?.sendLocation(currentCoordinate!, referensi: "\(groupId)/groups/member/\(userId)")
+//            getKey()
+//            Drawannotation(users)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -233,7 +244,7 @@ class RunViewController: UIViewController {
         self.startButton.isHidden = false
         self.resumeButton.isHidden = true
         self.endButton.isHidden = true
-        self.startButton.setBackgroundImage(UIImage(named: "pauseRun_button"), for : UIControl.State.normal)
+        self.startButton.setBackgroundImage(UIImage(named: "stopRun_button"), for : UIControl.State.normal)
         
     }
     
@@ -306,9 +317,13 @@ extension RunViewController: CLLocationManagerDelegate
 {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let lastlocation = locations.first else {return}
-        if namas != nil{
+        guard let groupId = UserDefaults.standard.string(forKey: "groupId") else {return}
+        guard let userId = UserDefaults.standard.string(forKey: "userId") else {return}
+        userName = UserDefaults.standard.string(forKey: "userName")
+        print("ini user name ", userName!)
+        if userName != ""{
             //sendLocation(lastlocation.coordinate)
-            mapHelp?.sendLocation(lastlocation.coordinate, referensi: "\(namas)")
+            mapHelp?.sendLocation(lastlocation.coordinate, referensi: "\(groupId)/groups/member/\(userId)")
             getKey()
             Drawannotation(users)
         }
@@ -320,7 +335,7 @@ extension RunViewController: CLLocationManagerDelegate
         }
         
         //limit time and distance update
-        locationManager.allowDeferredLocationUpdates(untilTraveled: kCLLocationAccuracyBest, timeout: 5 )
+        locationManager.allowDeferredLocationUpdates(untilTraveled: 5, timeout: 5 )
         currentCoordinate = lastlocation.coordinate
 
         

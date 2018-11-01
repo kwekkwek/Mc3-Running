@@ -53,25 +53,25 @@ if you want to go far go together</string>
                                     <segue destination="HhI-GI-hjy" kind="presentation" identifier="CreateSeague" id="LWs-0S-b0Y"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon-1024" translatesAutoresizingMaskIntoConstraints="NO" id="OFf-qF-vSd">
-                                <rect key="frame" x="97" y="122" width="180" height="180"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ppointNoLabel_logo" translatesAutoresizingMaskIntoConstraints="NO" id="OFf-qF-vSd">
+                                <rect key="frame" x="77" y="96" width="220" height="220"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="180" id="A3w-4w-aAK"/>
-                                    <constraint firstAttribute="height" constant="180" id="c18-GH-ieX"/>
+                                    <constraint firstAttribute="width" constant="220" id="A3w-4w-aAK"/>
+                                    <constraint firstAttribute="height" constant="220" id="c18-GH-ieX"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.90980392160000001" green="0.97254901959999995" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="uUZ-4d-7zR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="83" id="2oZ-ee-sSG"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OFf-qF-vSd" secondAttribute="trailing" constant="98" id="N5a-kC-zIk"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OFf-qF-vSd" secondAttribute="trailing" constant="78" id="N5a-kC-zIk"/>
                             <constraint firstItem="mU7-6s-MaC" firstAttribute="top" secondItem="uUZ-4d-7zR" secondAttribute="bottom" constant="103" id="Tmp-TU-3sF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uUZ-4d-7zR" secondAttribute="trailing" constant="84" id="bWI-ov-A6N"/>
                             <constraint firstItem="mU7-6s-MaC" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="eQv-jx-yRE"/>
-                            <constraint firstItem="OFf-qF-vSd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="97" id="k7A-CT-Xut"/>
+                            <constraint firstItem="OFf-qF-vSd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="77" id="k7A-CT-Xut"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="dZe-Ah-apZ" secondAttribute="bottom" constant="50" id="re5-cZ-rR9"/>
                             <constraint firstItem="dZe-Ah-apZ" firstAttribute="top" secondItem="mU7-6s-MaC" secondAttribute="bottom" constant="19" id="wdQ-sR-z2g"/>
-                            <constraint firstItem="uUZ-4d-7zR" firstAttribute="firstBaseline" secondItem="OFf-qF-vSd" secondAttribute="baseline" constant="3.6666666666666856" id="xbr-fo-7Gz"/>
+                            <constraint firstItem="uUZ-4d-7zR" firstAttribute="firstBaseline" secondItem="OFf-qF-vSd" secondAttribute="baseline" constant="-10.333333333333314" id="xbr-fo-7Gz"/>
                             <constraint firstItem="dZe-Ah-apZ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="zsq-58-Jiv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -568,7 +568,6 @@ if you want to go far go together</string>
     </scenes>
     <resources>
         <image name="Createbutton" width="343" height="44"/>
-        <image name="Icon-1024" width="1024" height="1024"/>
         <image name="Join" width="343" height="44"/>
         <image name="appName" width="108" height="46"/>
         <image name="cancel_button-1" width="56" height="56"/>
@@ -576,6 +575,7 @@ if you want to go far go together</string>
         <image name="detailGroup_button" width="300" height="44"/>
         <image name="joinGroup_button" width="300" height="44"/>
         <image name="leaveGroup_button" width="300" height="44"/>
+        <image name="ppointNoLabel_logo" width="1024" height="1024"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nZw-Nq-6Xc"/>

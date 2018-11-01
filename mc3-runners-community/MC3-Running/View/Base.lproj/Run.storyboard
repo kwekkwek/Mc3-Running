@@ -25,13 +25,12 @@
                                 </constraints>
                             </mapView>
                             <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxt-CZ-Qun">
-                                <rect key="frame" x="303" y="436" width="56" height="56"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="303" y="448" width="56" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="7wJ-Fg-PMF"/>
                                     <constraint firstAttribute="width" constant="56" id="nk8-Id-MXP"/>
                                 </constraints>
-                                <state key="normal">
+                                <state key="normal" backgroundImage="addRoute_button">
                                     <color key="titleColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
@@ -63,7 +62,7 @@
                                     <constraint firstAttribute="height" constant="80" id="Erm-5S-KlH"/>
                                     <constraint firstAttribute="width" constant="80" id="a85-S4-f5R"/>
                                 </constraints>
-                                <state key="normal" image="stopRun2_button">
+                                <state key="normal" image="stopRun_button">
                                     <color key="titleColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
@@ -73,13 +72,13 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="81" translatesAutoresizingMaskIntoConstraints="NO" id="OQF-af-yU9">
                                 <rect key="frame" x="60" y="520" width="255" height="30"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speedometer" translatesAutoresizingMaskIntoConstraints="NO" id="JUc-hz-gGZ">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pace_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="JUc-hz-gGZ">
                                         <rect key="frame" x="0.0" y="0.0" width="31" height="30"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Fill 26" translatesAutoresizingMaskIntoConstraints="NO" id="5rs-Kd-KP8">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="distance_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="5rs-Kd-KP8">
                                         <rect key="frame" x="112" y="0.0" width="31" height="30"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-fire_element-1" translatesAutoresizingMaskIntoConstraints="NO" id="5Ae-wV-NHJ">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calories_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="5Ae-wV-NHJ">
                                         <rect key="frame" x="224" y="0.0" width="31" height="30"/>
                                     </imageView>
                                 </subviews>
@@ -115,13 +114,12 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pC2-DM-J13">
-                                <rect key="frame" x="303" y="372" width="56" height="56"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="303" y="398" width="56" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="Q48-JK-JJ0"/>
                                     <constraint firstAttribute="width" constant="56" id="t76-85-0yD"/>
                                 </constraints>
-                                <state key="normal">
+                                <state key="normal" backgroundImage="recenter_button">
                                     <color key="titleColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
@@ -134,7 +132,7 @@
                                     <constraint firstAttribute="width" constant="80" id="DVs-NG-o7C"/>
                                     <constraint firstAttribute="height" constant="80" id="UxS-WU-SxJ"/>
                                 </constraints>
-                                <state key="normal" image="resumeRun2_button">
+                                <state key="normal" image="startRun_button">
                                     <color key="titleColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
@@ -152,7 +150,7 @@
                             <constraint firstItem="7gq-Lf-cr0" firstAttribute="bottom" secondItem="NSe-kT-iPM" secondAttribute="bottom" constant="14" id="LfR-HX-zZI"/>
                             <constraint firstItem="7gq-Lf-cr0" firstAttribute="trailing" secondItem="NSe-kT-iPM" secondAttribute="trailing" constant="51" id="Lyg-g1-KnS"/>
                             <constraint firstItem="OQF-af-yU9" firstAttribute="centerX" secondItem="7gq-Lf-cr0" secondAttribute="centerX" id="PHP-h8-jbV"/>
-                            <constraint firstItem="jxt-CZ-Qun" firstAttribute="top" secondItem="pC2-DM-J13" secondAttribute="bottom" constant="8" id="RKi-yu-WOV"/>
+                            <constraint firstItem="jxt-CZ-Qun" firstAttribute="top" secondItem="pC2-DM-J13" secondAttribute="bottom" constant="-6" id="RKi-yu-WOV"/>
                             <constraint firstItem="ZAa-Ze-AhR" firstAttribute="leading" secondItem="7gq-Lf-cr0" secondAttribute="leading" constant="20" id="UQQ-jv-Uok"/>
                             <constraint firstItem="yAb-lp-7cI" firstAttribute="top" secondItem="ZAa-Ze-AhR" secondAttribute="bottom" constant="7.6699999999999999" id="URk-WR-2w7"/>
                             <constraint firstItem="ZAa-Ze-AhR" firstAttribute="top" secondItem="fcK-Ax-cre" secondAttribute="bottom" constant="20" id="VJy-CG-uAt"/>
@@ -163,7 +161,7 @@
                             <constraint firstItem="7gq-Lf-cr0" firstAttribute="trailing" secondItem="pC2-DM-J13" secondAttribute="trailing" constant="16" id="d8e-Nq-kqP"/>
                             <constraint firstItem="7gq-Lf-cr0" firstAttribute="trailing" secondItem="ZAa-Ze-AhR" secondAttribute="trailing" constant="20" id="erQ-4Y-xwP"/>
                             <constraint firstItem="OQF-af-yU9" firstAttribute="top" secondItem="Fvb-oz-3Ej" secondAttribute="bottom" constant="12" id="isN-Fc-3sf"/>
-                            <constraint firstItem="jxt-CZ-Qun" firstAttribute="bottom" secondItem="Fvb-oz-3Ej" secondAttribute="bottom" constant="-16" id="lId-MU-XPH"/>
+                            <constraint firstItem="jxt-CZ-Qun" firstAttribute="bottom" secondItem="Fvb-oz-3Ej" secondAttribute="bottom" constant="-4" id="lId-MU-XPH"/>
                             <constraint firstItem="7gq-Lf-cr0" firstAttribute="trailing" secondItem="jxt-CZ-Qun" secondAttribute="trailing" constant="16" id="nbu-IC-DWG"/>
                             <constraint firstItem="7gq-Lf-cr0" firstAttribute="bottom" secondItem="IOC-ah-fCb" secondAttribute="bottom" constant="14" id="oRX-Bx-gn3"/>
                             <constraint firstItem="Fvb-oz-3Ej" firstAttribute="top" secondItem="j46-ZO-uWm" secondAttribute="topMargin" id="yg0-oB-BBP"/>
@@ -389,12 +387,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Fill 26" width="13" height="19"/>
         <image name="Startpoint" width="311" height="44"/>
+        <image name="addRoute_button" width="56" height="56"/>
         <image name="addpoint" width="311" height="44"/>
-        <image name="icons8-fire_element-1" width="15" height="19"/>
-        <image name="resumeRun2_button" width="112" height="112"/>
-        <image name="speedometer" width="31" height="18"/>
-        <image name="stopRun2_button" width="112" height="112"/>
+        <image name="calories_Icon" width="65" height="56"/>
+        <image name="distance_Icon" width="65" height="56"/>
+        <image name="pace_Icon" width="65" height="56"/>
+        <image name="recenter_button" width="56" height="56"/>
+        <image name="startRun_button" width="112" height="112"/>
+        <image name="stopRun_button" width="112" height="112"/>
     </resources>
 </document>

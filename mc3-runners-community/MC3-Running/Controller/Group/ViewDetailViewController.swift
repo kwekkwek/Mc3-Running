@@ -20,16 +20,18 @@ class ViewDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
 //        name.append("Gun (Admin)")
 //        name.append("Eight")
         detailTabel.dataSource = self
         detailTabel.delegate = self
         updateTable()
+        
         // Do any additional setup after loading the view.
     }
     
     func  updateTable()  {
+        
         detailTabel.beginUpdates()
         let idxPath =  IndexPath(row: name.count, section: 0)
         detailTabel.insertRows(at:[idxPath] , with: .left)
@@ -54,6 +56,7 @@ class ViewDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         return cell
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
         self.navigationController?.isNavigationBarHidden = false

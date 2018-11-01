@@ -18,16 +18,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="0qt-Fu-AIG">
-                                <rect key="frame" x="87" y="233" width="200" height="200"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ppoint_logo" translatesAutoresizingMaskIntoConstraints="NO" id="0qt-Fu-AIG">
+                                <rect key="frame" x="62" y="208" width="250" height="250"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.90980392160000001" green="0.97254901959999995" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="0qt-Fu-AIG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="87" id="JiG-eO-dN2"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="0qt-Fu-AIG" secondAttribute="bottom" constant="234" id="c8D-bS-rrx"/>
-                            <constraint firstItem="0qt-Fu-AIG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="213" id="j5q-qa-lTt"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0qt-Fu-AIG" secondAttribute="trailing" constant="88" id="k9O-c1-Kao"/>
+                            <constraint firstItem="0qt-Fu-AIG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="62" id="JiG-eO-dN2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="0qt-Fu-AIG" secondAttribute="bottom" constant="209" id="c8D-bS-rrx"/>
+                            <constraint firstItem="0qt-Fu-AIG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="188" id="j5q-qa-lTt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0qt-Fu-AIG" secondAttribute="trailing" constant="63" id="k9O-c1-Kao"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -38,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="1024" height="1024"/>
+        <image name="ppoint_logo" width="1024" height="1024"/>
     </resources>
 </document>

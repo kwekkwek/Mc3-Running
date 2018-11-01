@@ -17,7 +17,7 @@ class GroupViewController: UIViewController {
     
     var mapHelp:MapHelper?
     
-    let tabBarImageActive = ["groupTabBar_Active", "runTabBar_ActiveS", "historyTabBar_Active"]
+    let tabBarImageActive = ["groupTabBar_Active", "runTabBar_Active", "historyTabBar_Active"]
     let tabBarImageInactive = ["groupTabBar_Inactive","runTabBar_Inactive","historyTabBar_Inactive" ]
     
     var namaUser = ""

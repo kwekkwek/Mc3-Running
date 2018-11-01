@@ -27,7 +27,7 @@ class MapHelper {
         self.map?.showsUserLocation = true
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.distanceFilter = 7
+        locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.startUpdatingLocation()
         locationManager.activityType = .fitness
     }
@@ -41,14 +41,15 @@ class MapHelper {
     func sendLocation(_ locations: CLLocationCoordinate2D,referensi:String)
     {
         //let key = ref.childByAutoId().key
-        ref = Database.database().reference().child("positions")
+        guard let userName = UserDefaults.standard.string(forKey: "userName") else {return}
+        ref = Database.database().reference().child("runners")
+        print("ini ref loh     \(ref)")
         let location:[String:Any] = [
-            "id": "\(referensi)",
             "latitude":locations.latitude,
             "longitude":locations.longitude
         ]
-        ref.child("\(referensi)").setValue(location)
-        print("addData")
+        ref.child("\(referensi)/location").setValue(location)
+        print("addDataLokasi")
         
     }
     
