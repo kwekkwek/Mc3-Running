@@ -116,6 +116,60 @@ struct Histories: Codable {
 //    
 }
 
+struct Members : Codable {
+    
+    let isAdmin : String?
+    let namaMember : String?
+    let latitude : Float?
+    let longitude : Float?
+    
+    
+    enum CodingKeys: String, CodingKey {
+        case isAdmin = "isAdmin"
+        case location = "location"
+        case namaMember = "namaMember"
+        case latitude = "latitude"
+        case longitude = "longitude"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        isAdmin = try container.decode(String.self, forKey: .isAdmin)
+        namaMember = try container.decode(String.self, forKey: .namaMember)
+        let location = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .location)
+        
+        latitude = try location.decode(Float.self, forKey: .latitude)
+        longitude = try location.decode(Float.self, forKey: .longitude)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(isAdmin, forKey: .isAdmin)
+        try container.encode(namaMember, forKey: .namaMember )
+        
+        var nestedLocation = container.nestedContainer(keyedBy: CodingKeys.self, forKey: .location)
+        
+        try nestedLocation.encode(latitude, forKey: .latitude )
+        try nestedLocation.encode(latitude, forKey: .longitude )
+    }
+    
+}
+struct HistoryMember {
+    let member_Calorie:String?
+    let member_Date:String?
+    let member_Distance:String?
+    let member_Pace:String?
+    let time_Total:String?
+    
+    enum CodingKeys: String,CodingKey {
+        case member_Calorie = "calorie"
+        case member_Date = "date"
+        case member_Distance = "distance"
+        case member_pace = "pace"
+        case time_Total = "timeTotal"
+    }
+    
+}
 
 
 extension String {

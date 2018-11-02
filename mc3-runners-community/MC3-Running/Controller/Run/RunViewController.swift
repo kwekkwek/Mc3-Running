@@ -19,7 +19,6 @@ class RunViewController: UIViewController {
     let locationManager = CLLocationManager()
     var ref: DatabaseReference!
     var currentCoordinate:CLLocationCoordinate2D?
-    var namas:String = "Eight"
     var userName:String?
     var daftarRoute: [CLLocationCoordinate2D]?
     @IBOutlet weak var mapView: MKMapView!
@@ -35,10 +34,11 @@ class RunViewController: UIViewController {
     
     var mapHelp:MapHelper?
     //make array class
-    var users:[RootClass] = []
+    var users:[Members] = []
     var group = String.random()
     var nama: String?
     var launch : Bool = true
+    
     
     let tabBarImageActive = ["groupTabBar_Active", "runTabBar_Active", "historyTabBar_Active"]
     let tabBarImageInactive = ["groupTabBar_Inactive","runTabBar_Inactive","historyTabBar_Inactive" ]
@@ -70,18 +70,11 @@ class RunViewController: UIViewController {
         guard let userId = UserDefaults.standard.string(forKey: "userId") else {return}
         userName = UserDefaults.standard.string(forKey: "userName")
         
+        getMember(groupID: groupId)
         print("ini user name ", userName!)
-        
-        
         print("ini direction = ", daftarRoute)
         
         
-//        if userName != ""{
-//            //sendLocation(lastlocation.coordinate)
-//            mapHelp?.sendLocation(currentCoordinate!, referensi: "\(groupId)/groups/member/\(userId)")
-//            getKey()
-//            Drawannotation(users)
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -149,7 +142,7 @@ class RunViewController: UIViewController {
                     //print(post!)
                     arrayUsers.append(post!)
                 }
-                self.users = arrayUsers
+                //self.users = arrayUsers
 //                for user in self.users
 //                {
 //                    print(user)
@@ -158,7 +151,34 @@ class RunViewController: UIViewController {
             catch {}
         }
     }
-    func Drawannotation(_ user:[RootClass])  {
+    func getMember(groupID kode:String)
+    {
+        var arrayUsers:[Members] = [Members]()
+        Database.database().reference().child("runners/\(kode)/groups/member/").observe(.value) { snapshot in
+            guard let values = snapshot.value as? [String:[String:Any]] else {return}
+            do{
+                let decoder = JSONDecoder()
+                for value in values
+                {
+                    let jsonData = try JSONSerialization.data(withJSONObject:  value.value , options: [] )
+                    //
+                    //print(value.value)
+                    
+                    let dataString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)!
+                    print("ini datastring = ",dataString,"\n")
+                    let post = try decoder.decode(Members.self, from: jsonData)
+                    //print(post)
+                    arrayUsers.append(post)
+                }
+                self.users = arrayUsers
+            } catch{
+                print(error.localizedDescription)
+            }
+            
+        }
+    }
+
+    func Drawannotation(_ user:[Members])  {
         let allAnnotation = self.mapView.annotations
      
         if !allAnnotation.isEmpty
@@ -166,7 +186,7 @@ class RunViewController: UIViewController {
             self.mapView.removeAnnotations(allAnnotation)
         }
         for dataUser in user {
-            mapHelp?.DrawingAnnotation(Longitude: dataUser.longitude!, latitude: dataUser.latitude!, title: dataUser.id!)
+            mapHelp?.DrawingAnnotation(Longitude: dataUser.longitude!, latitude: dataUser.latitude!, title: dataUser.namaMember!)
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
@@ -418,7 +438,7 @@ class RunViewController: UIViewController {
     }
     
     
-    }
+}// tutup CLASS
     
 
 
@@ -433,7 +453,7 @@ extension RunViewController: CLLocationManagerDelegate
         if userName != ""{
             //sendLocation(lastlocation.coordinate)
             mapHelp?.sendLocation(lastlocation.coordinate, referensi: "\(groupId)/groups/member/\(userId)")
-            getKey()
+            getMember(groupID: groupId)
             Drawannotation(users)
         }
         
@@ -444,7 +464,7 @@ extension RunViewController: CLLocationManagerDelegate
         }
         
         //limit time and distance update
-        locationManager.allowDeferredLocationUpdates(untilTraveled: 5, timeout: 5 )
+        locationManager.allowDeferredLocationUpdates(untilTraveled: 10, timeout: 20 )
         currentCoordinate = lastlocation.coordinate
 
         
@@ -480,8 +500,6 @@ extension RunViewController: CLLocationManagerDelegate
             locationList.append(newLocation)
             //print(locationList)
         }
-    
-    
     }
 }
 
