@@ -10,6 +10,7 @@ import Foundation
 import CoreLocation
 import Firebase
 import MapKit
+import FirebaseDatabase
 
 class MapHelper {
     var map:MKMapView?
@@ -77,7 +78,21 @@ class MapHelper {
         print("addDataSend")
         
     }
+    func SetRoute(routes: [CLLocationCoordinate2D])
+    {
+        var counter = 0
+        guard let groupId = UserDefaults.standard.string(forKey: "groupId") else {return}
+        ref = Database.database().reference().child("runners/\(groupId)/groups/")
     
+        var array2D = [[String]]()
+        for route in routes
+        {
+            array2D.append(["\(route.latitude )","\(route.longitude)"])
+        }
+        //print("ini adalah array 2d",array2D)
+        ref.child("route").setValue(array2D)
+        
+    }
     func Drawannotation(_ user:[RootClass])  {
         let allAnnotation = self.map?.annotations
         

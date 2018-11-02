@@ -19,6 +19,7 @@ class AddRouteViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var enterPoint: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var distanceKm: UILabel!
+    @IBOutlet weak var bottomView: UIView!
     var counter:Int = 0
     var totalDistance: Int = 0
     var searchResults = UISearchController(searchResultsController: nil)
@@ -37,8 +38,6 @@ class AddRouteViewController: UIViewController, UIGestureRecognizerDelegate {
         gesture.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(gesture)
         
-        print("asd",direction.count)
-        
     }
     func setupConfig()
     {
@@ -48,6 +47,7 @@ class AddRouteViewController: UIViewController, UIGestureRecognizerDelegate {
         mapHelp?.beginUpdate(with: self.LocationManager)
         mapHelp?.zoomToLocation(with: currentLocation!)
         //direction.append(currentLocation!)
+        bottomView.isHidden = true
         SetupSearchBar()
         
     }
@@ -84,16 +84,18 @@ class AddRouteViewController: UIViewController, UIGestureRecognizerDelegate {
         print(coordinate)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-        annotation.title = String("checkpoint \(counter+1)")
+        if counter == 0
+        {
+            annotation.title = String("Start Area")
+            getLocationName(with: coordinate)
+        }else{
+            annotation.title = String("checkpoint \(counter)")
+        }
         //annotation.subtitle = ( "\(place.location!.coordinate)")
         self.direction.append(coordinate)
         self.mapView.addAnnotation(annotation)
-        //self.counter = counter + 1
+        self.counter = counter + 1
         checkRoute()
-    }
-    
-    @IBAction func drawing(_ sender: Any) {
-        drawMultipleRoute()
     }
     
     func drawMultipleRoute()
@@ -146,7 +148,13 @@ class AddRouteViewController: UIViewController, UIGestureRecognizerDelegate {
     {
         if direction.count >= 2
         {
-            //self.saveButton.isHidden = false
+
+            UIView.animate(withDuration: 2, delay: 3, usingSpringWithDamping: 0.2, initialSpringVelocity: 0.5, options: .curveEaseIn, animations: {
+
+                self.bottomView.isHidden = false
+                self.drawMultipleRoute()
+            }, completion: nil)
+            
         }
     }
     func drawMap(source:CLLocationCoordinate2D, destination:CLLocationCoordinate2D)
@@ -176,6 +184,14 @@ class AddRouteViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         }
     }
+   
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if direction.count >= 2 {
+            let run = segue.destination as? RunViewController
+            run?.daftarRoute = direction
+            mapHelp?.SetRoute(routes: self.direction)
+        }
+    }
 }
 extension AddRouteViewController: CLLocationManagerDelegate
 {
@@ -201,7 +217,7 @@ extension AddRouteViewController: UISearchBarDelegate
 {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.text = nil
-        checkRoute()
+        
     }
     
 }
@@ -213,6 +229,7 @@ extension AddRouteViewController: sentData
         self.direction.append(directions)
         self.counter = self.counter + counter
         print("ini adalah setelah : ",direction.count)
+        checkRoute()
     }
     
 }

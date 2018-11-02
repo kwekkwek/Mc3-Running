@@ -20,7 +20,7 @@ class RunViewController: UIViewController {
     var currentCoordinate:CLLocationCoordinate2D?
     var namas:String = "Eight"
     var userName:String?
-   
+    var daftarRoute: [CLLocationCoordinate2D]?
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addRouteButton: UIButton!
     @IBOutlet weak var recenterButton: UIButton!
@@ -67,6 +67,11 @@ class RunViewController: UIViewController {
         guard let userId = UserDefaults.standard.string(forKey: "userId") else {return}
         userName = UserDefaults.standard.string(forKey: "userName")
         print("ini user name ", userName!)
+        
+        
+        print("ini direction = ", daftarRoute)
+        
+        
 //        if userName != ""{
 //            //sendLocation(lastlocation.coordinate)
 //            mapHelp?.sendLocation(currentCoordinate!, referensi: "\(groupId)/groups/member/\(userId)")
@@ -115,16 +120,22 @@ class RunViewController: UIViewController {
             return
         }
     }
+    @IBAction func unwindToRun(_ unwindSegue: UIStoryboardSegue) {
+        let sourceViewController = unwindSegue.source as? AddRouteViewController
+        sourceViewController?.direction = daftarRoute!
+        super.viewDidLoad()
+        // Use data from the view controller which initiated the unwind segue
+    }
     func getKey()
     {
         var arrayUsers:[RootClass] = []
         Database.database().reference().child("positions").observe(.value) { snapshot in
             guard let value = snapshot.value as? [String:[String:Any]] else {return}
-            print(value)
+            //print(value)
             do{
                 for values in value
                 {
-                    print(values.value)
+                    //print(values.value)
                     //dictionary = values.value
                     let jsonData = try JSONSerialization.data(withJSONObject: values.value , options: [] )
                     //print("ini jsonData = ", values,"\n")
@@ -135,10 +146,10 @@ class RunViewController: UIViewController {
                     arrayUsers.append(post!)
                 }
                 self.users = arrayUsers
-                for user in self.users
-                {
-                    print(user)
-                }
+//                for user in self.users
+//                {
+//                    print(user)
+//                }
             }
             catch {}
         }
@@ -344,25 +355,25 @@ extension RunViewController: CLLocationManagerDelegate
 //            guard newLocation.horizontalAccuracy < 5 && abs(howRecent) < 5 else { continue }
 
             if let lastLocation = locationList.last {
-                print("Ini last location = \(lastLocation)")
+                //print("Ini last location = \(lastLocation)")
                 let delta = newLocation.distance(from: lastLocation)
                 distanceCurrent = distanceCurrent + Measurement(value: delta, unit: UnitLength.meters)
                 paceTemp = FormatDisplay.pace(distance: distanceCurrent, seconds: secs, outputUnit: UnitSpeed.minutesPerKilometer)
-                print("ini lokasi =\( delta)")
-                print("ini jarak  update =  \(distanceCurrent)")
+               // print("ini lokasi =\( delta)")
+                //print("ini jarak  update =  \(distanceCurrent)")
                 let tempCalorie = distanceCurrent*60/1000
                 let forcal = String(format: "%.2f", tempCalorie as CVarArg)
-                print("ini kalori \(tempCalorie)")
+                //print("ini kalori \(tempCalorie)")
                 DispatchQueue.main.async {
                     self.forPace = self.paceTemp
                     self.forDistance = "\(self.distanceCurrent)"
                     self.forCalorie = forcal
-                    print("new distance = \(self.forDistance)")
+                    //print("new distance = \(self.forDistance)")
                 }
                 
             }
             locationList.append(newLocation)
-            print(locationList)
+            //print(locationList)
         }
     
     
