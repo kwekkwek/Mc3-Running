@@ -12,6 +12,7 @@ import CoreLocation
 import Firebase
 import FirebaseDatabase
 import Foundation
+import HealthKit
 
 class RunViewController: UIViewController {
     
@@ -53,12 +54,14 @@ class RunViewController: UIViewController {
     var locationList :[CLLocation] = []
     var paceTemp : String = ""
     var dateRun : String = ""
-    
+    var UserHeight : Double?
+    var UserWeight : Double?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mapHelp = MapHelper(with: mapView)
+        HealthAuth()
         configurePermission()
         ReadyRun()
         setTabItem()
@@ -66,6 +69,7 @@ class RunViewController: UIViewController {
         guard let groupId = UserDefaults.standard.string(forKey: "groupId") else {return}
         guard let userId = UserDefaults.standard.string(forKey: "userId") else {return}
         userName = UserDefaults.standard.string(forKey: "userName")
+        
         print("ini user name ", userName!)
         
         
@@ -218,10 +222,11 @@ class RunViewController: UIViewController {
            self.distanceLabel.text = self.forDistance
             self.timeLabel.text = self.forTime
             self.paceLabel.text = self.forPace
-            self.calorieLabel.text = self.forCalorie
+            self.calorieLabel.text = "\(self.forCalorie) kcal"
             self.dateRun = FormatDisplay.date(Date())
             print("the date \(FormatDisplay.date(Date()))")
             print("ini display jarak =\(self.forDistance)")
+            self.UpdateLabel()
         }
     }
     
@@ -247,7 +252,6 @@ class RunViewController: UIViewController {
         self.startButton.isHidden = true
         self.resumeButton.isHidden = false
         self.endButton.isHidden = false
-//        locationManager.stopUpdatingLocation()
     }
     
     func ResumeAct()  {
@@ -260,9 +264,6 @@ class RunViewController: UIViewController {
     }
     
     func SaveRun() {
-        
-        
-
             let groupId = UserDefaults.standard.string(forKey: "groupId")
             let userId = UserDefaults.standard.string(forKey: "userId")
 
@@ -277,19 +278,8 @@ class RunViewController: UIViewController {
         ]
             ref.childByAutoId().setValue(member)
             print("addDataSend")
-        
-        
-        
-        let totalTime = self.forTime
-        let totalDistance = self.forDistance
-        let avePace = self.forPace
-        let totalCalorie = self.forCalorie
-        
-        print(totalTime)
-         print(totalDistance)
-         print(avePace)
-         print(totalCalorie)
     }
+    
     func notifyUser()  {
         let alert = UIAlertController(title: "Confirm", message: "Do you want to save your run?", preferredStyle: UIAlertController.Style.alert)
         
@@ -319,11 +309,119 @@ class RunViewController: UIViewController {
         notifyUser()
     }
     
+    func HealthAuth() {
+        AuthorizeHealthKit()
+        loadAndDisplayMostRecentHeight()
+        loadAndDisplayMostRecentWeight()
+        UpdateLabel()
+        
+    }
     
+    func AuthorizeHealthKit() {
+        
+        SetupAssistant.AuthorizeHealthKit { (authorized, error) in
+            
+            guard authorized else {
+                
+                let baseMessage = "HealthKit Authorization Failed"
+                
+                if let error = error {
+                    print("\(baseMessage). Reason: \(error.localizedDescription)")
+                } else {
+                    print(baseMessage)
+                }
+                
+                return
+            }
+            
+            print("HealthKit Successfully Authorized.")
+        }
+        
+    }
+    
+    func UpdateLabel() {
+        if let weight = UserWeight{
+            let weightFormatter = MassFormatter()
+            weightFormatter.isForPersonMassUse = true
+            print("massa  \(weight)")
+            
+        }
+        
+        if let height = UserHeight{
+            let heightFormatter = LengthFormatter()
+            heightFormatter.isForPersonHeightUse = true
+            
+            print("Tinggi  \(height )")
+        }
+    }
+    
+    private func loadAndDisplayMostRecentHeight() {
+        
+        //1. Use HealthKit to create the Height Sample Type
+        guard let heightSampleType = HKSampleType.quantityType(forIdentifier: .height) else {
+            print("Height Sample Type is no longer available in HealthKit")
+            return
+        }
+        
+        ProfileData.getMostRecentSample(for: heightSampleType) { (sample, error) in
+            
+            guard let sample = sample else {
+                
+                if let error = error {
+                    self.displayAlert(for: error)
+                }
+                
+                return
+            }
+            
+            //2. Convert the height sample to meters, save to the profile model,
+            //   and update the user interface.
+            let heightInMeters = sample.quantity.doubleValue(for: HKUnit.meter())
+            self.UserHeight = heightInMeters
+            self.UpdateLabel()
+        }
+    }
+    
+    func loadAndDisplayMostRecentWeight() {
+        
+        guard let weightSampleType = HKSampleType.quantityType(forIdentifier: .bodyMass) else {
+            print("Body Mass Sample Type is no longer available in HealthKit")
+            return
+        }
+        
+        ProfileData.getMostRecentSample(for: weightSampleType) { (sample, error) in
+            
+            guard let sample = sample else {
+                
+                if let error = error {
+                    self.displayAlert(for: error)
+                }
+                return
+            }
+            
+            let weightInKilograms = sample.quantity.doubleValue(for: HKUnit.gramUnit(with: .kilo))
+            self.UserWeight = weightInKilograms
+            self.UpdateLabel()
+        }
+    }
+    private func displayAlert(for error: Error) {
+        
+        let alert = UIAlertController(title: nil,
+                                      message: error.localizedDescription,
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK",
+                                      style: .default,
+                                      handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
+    }
     
 
 
-}
 extension RunViewController: CLLocationManagerDelegate
 {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -355,21 +453,28 @@ extension RunViewController: CLLocationManagerDelegate
 //            guard newLocation.horizontalAccuracy < 5 && abs(howRecent) < 5 else { continue }
 
             if let lastLocation = locationList.last {
-                //print("Ini last location = \(lastLocation)")
+                //print(Double"Ini last location = \(lastLocation)")
                 let delta = newLocation.distance(from: lastLocation)
                 distanceCurrent = distanceCurrent + Measurement(value: delta, unit: UnitLength.meters)
                 paceTemp = FormatDisplay.pace(distance: distanceCurrent, seconds: secs, outputUnit: UnitSpeed.minutesPerKilometer)
-               // print("ini lokasi =\( delta)")
-                //print("ini jarak  update =  \(distanceCurrent)")
-                let tempCalorie = distanceCurrent*60/1000
-                let forcal = String(format: "%.2f", tempCalorie as CVarArg)
-                //print("ini kalori \(tempCalorie)")
-                DispatchQueue.main.async {
+                 var deltaTotal : Double = 0
+                deltaTotal = deltaTotal + delta
+                var calTotal = Double((Double(deltaTotal) * Double(UserWeight!) * 1.036)/1000)
+                calTotal = calTotal + calTotal
+                print("ini delta totalnya ==== \(deltaTotal)")
+                print("ini kalori totalnya ==== \(calTotal)")
+//                DispatchQueue.main.async {
                     self.forPace = self.paceTemp
                     self.forDistance = "\(self.distanceCurrent)"
-                    self.forCalorie = forcal
-                    //print("new distance = \(self.forDistance)")
-                }
+                    if calTotal < 1{
+                    self.forCalorie = "0"
+                    print(self.forCalorie)
+                    }else{
+                        self.forCalorie = String(format: "%.2f", calTotal)
+                        
+                    }
+                    
+               // }
                 
             }
             locationList.append(newLocation)

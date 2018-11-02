@@ -71,12 +71,16 @@ class ResultGroupViewController: UIViewController {
         Database.database().reference().child("runners/\(kode)/groups/member").observe(.value) { snapshot in
             guard let values = snapshot.value as? [String:[String:Any]] else {return}
             print("ini adalah keys",values.keys)
+            self.arrayUser.removeAll()
+            let userName = UserDefaults.standard.string(forKey: "userName")
             do{
                 for valueKey in values.keys
                 {
                     guard let groupsDictionary = values[valueKey] else {return}
                     print("ini group dictionary = ",groupsDictionary)
+                    if "\(groupsDictionary["namaMember"]!)" != userName!{
                     self.arrayUser.append("\(groupsDictionary["namaMember"]!)")
+                    }
                 }
             }
             catch {}
@@ -125,6 +129,8 @@ class ResultGroupViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
         self.navigationController?.isNavigationBarHidden = true
-    }
+            self.tabBarController?.tabBar.isHidden = false
+        }
+    
     
 }
