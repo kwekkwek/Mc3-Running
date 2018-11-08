@@ -154,7 +154,7 @@ struct Members : Codable {
     }
     
 }
-struct HistoryMember {
+struct HistoryMember : Codable {
     let member_Calorie:String?
     let member_Date:String?
     let member_Distance:String?
@@ -166,9 +166,25 @@ struct HistoryMember {
         case member_Date = "date"
         case member_Distance = "distance"
         case member_pace = "pace"
-        case time_Total = "timeTotal"
+        case time_total = "timeTotal"
     }
-    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        member_Calorie = try container.decode(String.self, forKey: .member_Calorie)
+        member_Date = try container.decode(String.self, forKey: .member_Date)
+        member_Distance = try container.decode(String.self, forKey: .member_Distance)
+        member_Pace = try container.decode(String.self, forKey: .member_pace)
+        time_Total = try container.decode(String.self, forKey: .time_total)
+    }
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(member_Calorie, forKey: .member_Calorie)
+        try container.encode(member_Date, forKey: .member_Date )
+        try container.encode(member_Distance, forKey: .member_Distance)
+        try container.encode(member_Pace, forKey: .member_pace )
+        try container.encode(time_Total, forKey: .time_total)
+      
+    }
 }
 
 

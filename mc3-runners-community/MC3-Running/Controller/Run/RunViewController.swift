@@ -165,7 +165,7 @@ class RunViewController: UIViewController {
                     //print(value.value)
                     
                     let dataString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)!
-                    print("ini datastring = ",dataString,"\n")
+//                     print("ini datastring = ",dataString,"\n")
                     let post = try decoder.decode(Members.self, from: jsonData)
                     //print(post)
                     arrayUsers.append(post)
@@ -176,6 +176,7 @@ class RunViewController: UIViewController {
             }
             
         }
+        
     }
 
     func Drawannotation(_ user:[Members])  {
@@ -241,7 +242,7 @@ class RunViewController: UIViewController {
         DispatchQueue.main.async {
            self.distanceLabel.text = self.forDistance
             self.timeLabel.text = self.forTime
-            self.paceLabel.text = self.forPace
+            self.paceLabel.text = "\(self.forPace)min/km"
             self.calorieLabel.text = "\(self.forCalorie) kcal"
             self.dateRun = FormatDisplay.date(Date())
             print("the date \(FormatDisplay.date(Date()))")
@@ -298,6 +299,7 @@ class RunViewController: UIViewController {
         ]
             ref.childByAutoId().setValue(member)
             print("addDataSend")
+            
     }
     
     func notifyUser()  {
@@ -421,6 +423,7 @@ class RunViewController: UIViewController {
             
             let weightInKilograms = sample.quantity.doubleValue(for: HKUnit.gramUnit(with: .kilo))
             self.UserWeight = weightInKilograms
+           
             self.UpdateLabel()
         }
     }
@@ -435,6 +438,11 @@ class RunViewController: UIViewController {
                                       handler: nil))
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    func alertFillHealth()  {
+        let alert = UIAlertController(title: "", message: "Please, fill your info in Medical ID or use default formulas to calculate calories", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title:"OK", style: .default, handler: nil))
     }
     
     
@@ -464,7 +472,7 @@ extension RunViewController: CLLocationManagerDelegate
         }
         
         //limit time and distance update
-        locationManager.allowDeferredLocationUpdates(untilTraveled: 10, timeout: 20 )
+        locationManager.allowDeferredLocationUpdates(untilTraveled: 10, timeout: 10 )
         currentCoordinate = lastlocation.coordinate
 
         

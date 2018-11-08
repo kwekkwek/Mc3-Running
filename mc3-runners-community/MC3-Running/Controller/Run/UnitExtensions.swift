@@ -57,7 +57,7 @@ extension UnitSpeed {
   }
   
   class var minutesPerKilometer: UnitSpeed {
-    return UnitSpeed(symbol: "min/km", converter: UnitConverterPace(coefficient: 60.0 / 1000.0))
+    return UnitSpeed(symbol: "", converter: UnitConverterPace(coefficient: 60.0 / 1000.0))
   }
   
   class var minutesPerMile: UnitSpeed {

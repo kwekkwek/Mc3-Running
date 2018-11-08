@@ -20,6 +20,13 @@ class AddRouteViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var distanceKm: UILabel!
     @IBOutlet weak var bottomView: UIView!
+    
+    
+    @IBOutlet weak var createButton: UIButton!
+    
+    @IBOutlet weak var startPoint: UILabel!
+    
+    @IBOutlet weak var distanceLabel: UILabel!
     var counter:Int = 0
     var totalDistance: Int = 0
     var searchResults = UISearchController(searchResultsController: nil)
@@ -37,6 +44,13 @@ class AddRouteViewController: UIViewController, UIGestureRecognizerDelegate {
         gesture.delaysTouchesBegan = true
         gesture.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(gesture)
+        createButton.clipsToBounds = true
+        startPoint.layer.masksToBounds = true
+        distanceLabel.layer.masksToBounds = true
+        createButton.layer.backgroundColor = #colorLiteral(red: 1, green: 0.323200047, blue: 0, alpha: 1)
+        createButton.layer.cornerRadius = 15
+        startPoint.layer.cornerRadius = 15
+        distanceLabel.layer.cornerRadius = 15
         
     }
     func setupConfig()
@@ -176,7 +190,7 @@ class AddRouteViewController: UIViewController, UIGestureRecognizerDelegate {
                 DispatchQueue.main.async {
                     print("ini adalah route ",Int(route.distance))
                     self.totalDistance += Int(route.distance)
-                    self.enterPoint.text = "\(self.totalDistance)"
+                    self.enterPoint.text = "\(self.totalDistance/1000) km"
                     self.mapView.addOverlay(route.polyline)
                     self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
                 }

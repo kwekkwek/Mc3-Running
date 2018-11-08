@@ -2,12 +2,10 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "runTabBar_Active.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "runTabBar_Active@2x.png",
       "scale" : "2x"
     },
     {

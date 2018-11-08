@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 import Charts
+import Firebase
+import FirebaseDatabase
 
 class HistoryViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
@@ -23,31 +25,33 @@ class HistoryViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var calori : [Double] = []
     var dateRun : [Date] = []
     var axisFormatDelegate: IAxisValueFormatter?
-    var days : [String] = []
+    var forday : [String] = []
     var pacer : [Double] = []
-    
+    var hisArray : [HistoryMember] = []
+    var userName:String?
     override func viewDidLoad() {
         super.viewDidLoad()
-        axisFormatDelegate = self
-            historyTable.delegate = self
-        historyTable.dataSource = self
-        
-        speed.append(10.2)
-        distance.append(5.14)
-        calori.append(203.18)
-        dateRun.append(NSDate() as Date)
-        days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-        pacer = [10,5,6,9,4,8,7]
-        setChart(dataEntryX: days, dataEntryY: pacer)
+        setChart(dataEntryX: forday, dataEntryY: pacer)
         graphUiCustom()
+        getHistory()
+
        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getHistory()
+       
+        self.historyTable.reloadData()
+        
+    }
+    
+    
     func setChart(dataEntryX forX:[String],dataEntryY forY: [Double]) {
         
         barChart.noDataText = "You need to provide data for the chart."
         var dataEntries:[BarChartDataEntry] = []
         for i in 0..<forX.count{
-            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(forY[i]) , data:  days as AnyObject?)
+            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(forY[i]) , data:  forday as AnyObject?)
             print(dataEntry)
             dataEntries.append(dataEntry)
         }
@@ -57,6 +61,63 @@ class HistoryViewController: UIViewController,UITableViewDelegate,UITableViewDat
         let xAxisValue = barChart.xAxis
         xAxisValue.valueFormatter = axisFormatDelegate
         
+    }
+    
+    
+    
+    func getHistory()
+    {
+        guard let groupId = UserDefaults.standard.string(forKey: "groupId") else {return}
+        guard let userId = UserDefaults.standard.string(forKey: "userId") else {return}
+        var ArrayHistory:[HistoryMember] = [HistoryMember]()
+        print("group id  = \(groupId)")
+        print("user id  = \(userId)")
+                Database.database().reference().child("runners/\(groupId)/groups/member/\(userId)/history").observe(.value) { snapshot in
+            guard let values = snapshot.value as? [String:Any] else {return}
+            do{
+                let decoder = JSONDecoder()
+                for value in values
+                {
+                    let jsonData = try JSONSerialization.data(withJSONObject:  value.value , options: [] )
+                    print(value.value)
+                    
+                    let dataString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)!
+                    print("Lewat sini ngk = ",dataString,"\n")
+                    let post = try decoder.decode(HistoryMember.self, from: jsonData)
+                    ArrayHistory.append(post)
+                    print("hasil array \(ArrayHistory)")
+                }
+                self.hisArray = ArrayHistory
+                print("index 0 = \(self.hisArray[0].time_Total!)")
+                print("jumalaahhhhhhhh = \(self.hisArray.count)")
+                
+                for i in 0..<self.hisArray.count{
+                    if let pacerTemp = self.hisArray[i].member_Pace {
+                        if self.pacer.count != 0{
+                            DispatchQueue.global().async {
+                                while true{
+                                    self.pacer[i] = Double(pacerTemp)!
+                                    print("ini pacer ya = \(self.pacer[i])")
+                                    self.forday[i] = "\([i])"
+                                    print("ini pacer ya = \(self.pacer[i])")
+                                    self.forday[i] = "\([i])"
+                                    sleep(1)
+                                }
+                            }
+                        
+                        }
+                    }
+                }
+            } catch{
+                print(error.localizedDescription)
+            }
+        }
+        DispatchQueue.main.async {
+            self.axisFormatDelegate = self
+            self.historyTable.delegate = self
+            self.historyTable.dataSource = self
+            self.historyTable.reloadData()
+        }
     }
     
     func graphUiCustom() {
@@ -72,23 +133,26 @@ class HistoryViewController: UIViewController,UITableViewDelegate,UITableViewDat
         barChart.xAxis.drawGridLinesEnabled = false
         barChart.xAxis.drawAxisLineEnabled = false
         barChart.xAxis.axisLineColor = .clear
-        
+        historyTable.separatorStyle = .none
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return speed.count
+        print("jumlah array = \(hisArray.count)")
+        return hisArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = historyTable.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! HistoryTableViewCell
-        cell.speedLabel.text = "\(speed[indexPath.row])"
-         cell.distanceLabel.text = "\(distance[indexPath.row])"
-         cell.calorieLabel.text = "\(calori[indexPath.row])"
-        cell.dateLabel.text = "\(dateRun[indexPath.row])"
-        
+      
+        print("index=== \(indexPath.row)")
+        print("count == \(hisArray.count)")
+        cell.dateLabel.text = self.hisArray[indexPath.row].member_Date!
+        cell.distanceLabel.text = self.hisArray[indexPath.row].member_Distance!
+        cell.calorieLabel.text = "\(self.hisArray[indexPath.row].member_Calorie!) Kcal"
+        cell.speedLabel.text = "\(self.hisArray[indexPath.row].member_Pace!)min/km"
         
         if indexPath.row % 2  == 0{
-            cell.backgroundColor = #colorLiteral(red: 0.9264979362, green: 0.9778947234, blue: 0.9970450997, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.9264979362, green: 0.9778947234, blue: 0.9970450997, alpha: 0.5435841182)
             
         }
         else{
@@ -103,7 +167,7 @@ class HistoryViewController: UIViewController,UITableViewDelegate,UITableViewDat
 extension HistoryViewController: IAxisValueFormatter {
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-    return days[Int(value)]
+    return forday[Int(value)]
     }
 }
 
